@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Experience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        .timeline {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .experience-item {
+            position: relative;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 50%;
+            width: 10px;
+            height: 10px;
+            background: #007bff;
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            padding: 1rem;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <a href="mainpage.html" class="back-button">← Back</a>
+    <div class="timeline">
+        <!-- Add your experience items here -->
+        <div class="experience-item">
+            <h3>Position Title</h3>
+            <p>Company Name</p>
+            <p>Duration</p>
+            <p>Description of responsibilities and achievements</p>
+        </div>
+        <!-- Add more experience items -->
+    </div>
+</body>
+</html> 
