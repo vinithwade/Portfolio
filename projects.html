@@ -6,46 +6,134 @@
     <title>My Projects</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="projects-page">
+    <div class="projects-container">
+        <!-- Back Navigation -->
+        <div class="back-nav">
+            <a href="mainpage.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> 
+                Vinith Wade
+            </a>
+        </div>
+
+        <h1 class="projects-title">All Projects</h1>
+
+        <!-- Projects Table -->
+        <div class="projects-table">
+            <div class="table-header">
+                <div class="year-col">Year</div>
+                <div class="project-col">Project</div>
+                <div class="made-at-col">Made at</div>
+                <div class="built-with-col">Built with</div>
+                <div class="link-col">Link</div>
+            </div>
+
+            <!-- Project Row -->
+            <div class="project-row">
+                <div class="year-col">2023</div>
+                <div class="project-col">AI Image Generator</div>
+                <div class="made-at-col">Personal</div>
+                <div class="built-with-col">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">SCSS</span>
+                </div>
+                <div class="link-col">
+                    <a href="#" target="_blank" class="project-link">
+                        project-link.com <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Add more project rows following the same structure -->
+        </div>
+    </div>
+
     <style>
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .projects-page {
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
             padding: 2rem;
         }
 
-        .project-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            transition: all 0.3s ease;
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: #007bff;
+        .back-nav {
+            margin-bottom: 2rem;
         }
 
-        .back-button {
-            position: fixed;
-            top: 2rem;
-            left: 2rem;
-            padding: 1rem;
-            color: white;
+        .back-link {
+            color: #646eff9b;
             text-decoration: none;
-            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .projects-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #ccd6f6;
+        }
+
+        .projects-table {
+            width: 100%;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            color: #8892b0;
+        }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+        }
+
+        .tech-tag {
+            background: rgba(100, 255, 218, 0.1);
+            color: #64ffda;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        .project-link {
+            color: #64ffda;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-link i {
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .table-header, .project-row {
+                grid-template-columns: 1fr 2fr 1fr;
+            }
+
+            .made-at-col, .built-with-col {
+                display: none;
+            }
         }
     </style>
-</head>
-<body>
-    <a href="mainpage.html" class="back-button">← Back</a>
-    <div class="projects-grid">
-        <!-- Add your projects here -->
-        <div class="project-card">
-            <h3>Project 1</h3>
-            <p>Description of project 1</p>
-        </div>
-        <!-- Add more project cards -->
-    </div>
 </body>
 </html> 
