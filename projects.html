@@ -30,30 +30,130 @@
                 <div class="link-col">Link</div>
             </div>
 
-            <!-- Project Row -->
-            <div class="project-row">
-                <div class="year-col">2023</div>
-                <div class="project-col">AI Image Generator</div>
+            <!-- AI-Powered Food Recommendation System -->
+            <div class="project-row" data-project="ai-food-recommendation">
+                <div class="year-col">2025</div>
+                <div class="project-col">AI-Powered Food Recommendation System</div>
                 <div class="made-at-col">Personal</div>
                 <div class="built-with-col">
-                    <span class="tech-tag">React</span>
-                    <span class="tech-tag">TypeScript</span>
-                    <span class="tech-tag">SCSS</span>
+                    <span class="tech-tag">DevOps</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">Full-Stack</span>
                 </div>
                 <div class="link-col">
                     <a href="#" target="_blank" class="project-link">
-                        project-link.com <i class="fas fa-external-link-alt"></i>
+                        View Project <i class="fas fa-external-link-alt"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- Add more project rows following the same structure -->
+            <!-- Cognifyz Technologies -->
+            <div class="project-row" data-project="cognifyz-technologies">
+                <div class="year-col">2024</div>
+                <div class="project-col">Cognifyz Technologies - Frontend Developer</div>
+                <div class="made-at-col">Cognifyz Technologies</div>
+                <div class="built-with-col">
+                    <span class="tech-tag">Frontend</span>
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">JavaScript</span>
+                </div>
+                <div class="link-col">
+                    <a href="#" target="_blank" class="project-link">
+                        View Project <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Productive App -->
+            <div class="project-row" data-project="productive-app">
+                <div class="year-col">2024</div>
+                <div class="project-col">Productive App - Technical Lead</div>
+                <div class="made-at-col">Personal</div>
+                <div class="built-with-col">
+                    <span class="tech-tag">Technical Lead</span>
+                    <span class="tech-tag">Productivity</span>
+                    <span class="tech-tag">Data Analysis</span>
+                </div>
+                <div class="link-col">
+                    <a href="#" target="_blank" class="project-link">
+                        View Project <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- iOS Billing App -->
+            <div class="project-row" data-project="ios-billing-app">
+                <div class="year-col">2024</div>
+                <div class="project-col">iOS Billing App Prototype - CTO</div>
+                <div class="made-at-col">Personal</div>
+                <div class="built-with-col">
+                    <span class="tech-tag">iOS</span>
+                    <span class="tech-tag">Swift</span>
+                    <span class="tech-tag">SwiftUI</span>
+                </div>
+                <div class="link-col">
+                    <a href="#" target="_blank" class="project-link">
+                        View Project <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Auto Payment App -->
+            <div class="project-row" data-project="auto-payment-app">
+                <div class="year-col">2023</div>
+                <div class="project-col">Auto Payment App - Software Engineer</div>
+                <div class="made-at-col">Personal</div>
+                <div class="built-with-col">
+                    <span class="tech-tag">Flutter</span>
+                    <span class="tech-tag">Mobile</span>
+                    <span class="tech-tag">Payments</span>
+                </div>
+                <div class="link-col">
+                    <a href="#" target="_blank" class="project-link">
+                        View Project <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Python AI Platform -->
+            <div class="project-row" data-project="python-ai-platform">
+                <div class="year-col">2023</div>
+                <div class="project-col">Python AI Platform - Tech</div>
+                <div class="made-at-col">Personal</div>
+                <div class="built-with-col">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">LLMs</span>
+                </div>
+                <div class="link-col">
+                    <a href="#" target="_blank" class="project-link">
+                        View Project <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Habit Tracker App -->
+            <div class="project-row" data-project="habit-tracker-app">
+                <div class="year-col">2023</div>
+                <div class="project-col">Habit Tracker App - DevOps Engineer</div>
+                <div class="made-at-col">Personal</div>
+                <div class="built-with-col">
+                    <span class="tech-tag">iOS</span>
+                    <span class="tech-tag">UIKit</span>
+                    <span class="tech-tag">CoreData</span>
+                </div>
+                <div class="link-col">
+                    <a href="#" target="_blank" class="project-link">
+                        View Project <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
     <style>
         .projects-page {
-            background: #000000;
+            background: transparent;
             color: #ffffff;
             min-height: 100vh;
             padding: 2rem;
@@ -69,71 +169,208 @@
         }
 
         .back-link {
-            color: #646eff9b;
+            color: #007bff;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
             font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
         }
 
         .projects-title {
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: #ccd6f6;
+            color: #ffffff;
+            font-weight: 700;
         }
 
         .projects-table {
             width: 100%;
+            background: rgba(26, 26, 26, 0.8);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .table-header {
             display: grid;
             grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: 500;
-            color: #8892b0;
+            padding: 1.5rem 0;
+            background: rgba(17, 17, 17, 0.9);
+            border-bottom: 2px solid #333;
+            font-weight: 600;
+            color: #007bff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .project-row {
             display: grid;
             grid-template-columns: 0.5fr 2fr 1fr 2fr 1fr;
             padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            align-items: center;
+            border-bottom: 1px solid #333;
+            align-items: start;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-row:hover {
+            background: rgba(0, 123, 255, 0.05);
+            transform: translateX(5px);
+        }
+
+        .project-row.highlighted {
+            background: rgba(0, 123, 255, 0.1);
+            border-left: 4px solid #007bff;
+            animation: highlightPulse 2s ease-in-out;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% { background: rgba(0, 123, 255, 0.1); }
+            50% { background: rgba(0, 123, 255, 0.2); }
+        }
+
+        .built-with-col {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: flex-start;
+            min-height: 2rem;
         }
 
         .tech-tag {
-            background: rgba(100, 255, 218, 0.1);
-            color: #64ffda;
+            background: rgba(0, 123, 255, 0.1);
+            color: #007bff;
             padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            margin-right: 0.5rem;
+            border-radius: 0;
+            font-size: 0.8rem;
+            border: 1px solid #007bff;
+            font-weight: 500;
+            white-space: nowrap;
+            display: inline-block;
+            margin-bottom: 0.25rem;
         }
 
         .project-link {
-            color: #64ffda;
+            color: #007bff;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #ffffff;
         }
 
         .project-link i {
             font-size: 0.85rem;
         }
 
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .table-header, .project-row {
+                grid-template-columns: 0.5fr 2fr 1fr 1.5fr;
+            }
+            .built-with-col {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .table-header, .project-row {
+                grid-template-columns: 0.5fr 2fr 1fr 1fr;
+            }
+            .built-with-col {
+                display: none;
+            }
+        }
+
         @media (max-width: 768px) {
             .table-header, .project-row {
                 grid-template-columns: 1fr 2fr 1fr;
             }
-
             .made-at-col, .built-with-col {
+                display: none;
+            }
+            .projects-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-page {
+                padding: 1rem;
+            }
+            .table-header, .project-row {
+                grid-template-columns: 1fr 2fr;
+            }
+            .year-col {
                 display: none;
             }
         }
     </style>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Function to highlight a specific project
+        function highlightProject(projectId) {
+            // Remove any existing highlights
+            document.querySelectorAll('.project-row').forEach(row => {
+                row.classList.remove('highlighted');
+            });
+
+            // Add highlight to the specified project
+            const targetRow = document.querySelector(`[data-project="${projectId}"]`);
+            if (targetRow) {
+                targetRow.classList.add('highlighted');
+                
+                // Scroll to the highlighted project
+                targetRow.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }
+        }
+
+        // Check for project parameter on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const projectParam = getUrlParameter('project');
+            if (projectParam) {
+                // Small delay to ensure the page is fully loaded
+                setTimeout(() => {
+                    highlightProject(projectParam);
+                }, 100);
+            }
+        });
+
+        // Add click functionality to project rows
+        document.querySelectorAll('.project-row').forEach(row => {
+            row.addEventListener('click', function() {
+                // Remove highlight from all rows
+                document.querySelectorAll('.project-row').forEach(r => {
+                    r.classList.remove('highlighted');
+                });
+                
+                // Add highlight to clicked row
+                this.classList.add('highlighted');
+            });
+        });
+    </script>
 </body>
 </html> 
