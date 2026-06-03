@@ -104,64 +104,64 @@ export const experiences = [
 
 export const projects = [
   {
-    title: 'CTRL',
-    subtitle: 'AI Visual Design Tool',
-    tag: 'AI Product · 2025',
+    title: 'MindFlow',
+    subtitle: 'Context-Aware Voice Reply Assistant (macOS)',
+    tag: 'Solo Project · 2026',
     description:
-      'An AI-powered visual design tool that turns intent into production-ready code for web, mobile, and desktop.',
+      'A system-wide macOS app that turns a spoken intent plus on-screen context into a polished, ready-to-send reply using LLMs.',
     detail:
-      'Founder & developer. Integrated Claude and GPT-4 for real-time code suggestions and UX feedback. The goal: collapse the distance between design and development so anyone can go from idea to shipped product.',
-    highlight: 'Automated UI generation made building feel like sketching.',
+      'Built with Electron + React + TypeScript: a global hold-to-talk hotkey, a floating NSPanel overlay that renders over any app including full-screen Spaces, and one-click insert-and-send. Engineered a sub-3-second voice pipeline — mic → Whisper/Deepgram STT → screen-context extraction (macOS Accessibility API, AppleScript, on-device OCR) → Claude / GPT-4o-mini. Secure auth and cloud sync via Supabase (Google OAuth PKCE loopback, Postgres RLS, encrypted keys with safeStorage), a Razorpay credit-based monetization system with HMAC-verified Edge Function webhooks, plus full production practices: Vitest, GitHub Actions CI, Sentry, code signing, notarization, and auto-updates.',
+    highlight: 'Speak your intent, get a ready-to-send reply in under 3 seconds.',
+    color: '#fb7185',
+    href: 'https://github.com/vinithwade',
+  },
+  {
+    title: 'Stuff',
+    subtitle: 'AI Agent Orchestration Layer',
+    tag: 'Founder · 2026 – Present',
+    description:
+      'A control plane for AI agents that build software — turning vague product ideas into planned, reviewed, and safely shipped code.',
+    detail:
+      'A multi-agent pipeline: idea → spec → architecture → task graph → scoped Claude agents → verification → human approval → PR. Designed a policy and permission engine that gives each agent allowed commands and denied paths — making AI software engineering auditable and safe, not just fast. Stack: Next.js, TypeScript, Supabase, LangChain, Claude API, GitHub API.',
+    highlight: 'Makes AI software engineering auditable and safe, not just fast.',
     color: '#ff4d8a',
     href: 'https://github.com/vinithwade',
   },
   {
-    title: 'C2E',
-    subtitle: 'Creator ↔ Editor Platform',
-    tag: 'Production · 2025',
+    title: 'Personal Driver Booking',
+    subtitle: 'Hourly driver marketplace',
+    tag: 'Founder · 2026',
     description:
-      'Secure video collaboration for creators and editors — project folders, role-based access, and clean handoff.',
+      'An Uber-inspired platform: book a verified personal driver by the hour at a fixed rate and get home safely — with your own car.',
     detail:
-      'Built around how creators actually share raw footage with editors: organized projects, granular access, and a workflow that respects the asset chain.',
-    highlight: 'Replaced messy Drive folders with a proper creator workflow.',
+      'Solves a metro-city problem for people who own cars but dread traffic. Designed the full product flow: real-time driver availability, hourly pricing engine, booking + payment, driver-user trust system, and live tracking — thinking through the marketplace dynamics, pricing, and trust model, not just the code.',
+    highlight: 'Get home safely while your car comes with you.',
     color: '#a78bfa',
-    href: 'https://github.com/vinithwade/C2E',
-  },
-  {
-    title: 'ICU Sepsis',
-    subtitle: 'Prediction System',
-    tag: 'ML · Healthcare · 2024',
-    description:
-      'A machine-learning system that predicts ICU sepsis risk from vitals and lab values.',
-    detail:
-      'Built the full pipeline in Python — preprocessing, model training, evaluation, deployment via Streamlit. The Random Forest baseline hit 85–90% accuracy on the test set.',
-    highlight: 'Modular by design — slots into real healthcare data systems.',
-    color: '#22d3ee',
-    href: 'https://github.com/vinithwade/ICU-Sepsis-Prediction-System',
-  },
-  {
-    title: 'Dekho',
-    subtitle: 'Bas ek swipe',
-    tag: 'Mobile Web · 2025',
-    description:
-      'A swipe-first discovery experience built in TypeScript. Feels native, ships on the web.',
-    detail:
-      'Gesture-led UI with momentum, snap, and a content stream tuned for thumb-only navigation. Every interaction designed to feel like one continuous motion.',
-    highlight: 'Proof that web apps can move like native ones.',
-    color: '#d5ff3e',
-    href: 'https://github.com/vinithwade/Dekho',
-  },
-  {
-    title: 'Caption Engine',
-    subtitle: 'Video render pipeline',
-    tag: 'Production · 2025',
-    description:
-      'Browser upload, AI transcription, caption styling, video rendering, background removal, S3 caching, aspect-aware positioning.',
-    detail:
-      'A production-grade pipeline that takes a raw clip and outputs platform-ready video with styled, position-aware captions for every social aspect ratio.',
-    highlight: 'Reusable caption components powering creator workflows.',
-    color: '#fb7185',
     href: 'https://github.com/vinithwade',
+  },
+  {
+    title: 'CTRL',
+    subtitle: 'AI-Powered Visual Design Tool',
+    tag: 'AI Product · 2025',
+    description:
+      'A cross-platform design tool that auto-generates production-ready code for web, mobile, and desktop from drag-and-drop component logic.',
+    detail:
+      'Built and deployed live at ctrl-mvp.vercel.app. Integrated Claude and GPT-4 for real-time code suggestions and UX feedback, reducing effort by 40% and eliminating the need for non-technical users to write any code.',
+    highlight: 'From drag-and-drop to production code — no coding required.',
+    color: '#22d3ee',
+    href: 'https://ctrl-mvp.vercel.app',
+  },
+  {
+    title: 'Lexora',
+    subtitle: 'Real-Time AI Accountability Coach',
+    tag: 'AI Product · 2025',
+    description:
+      'A real-time AI video coaching app where users video-call an AI agent twice daily to set tasks, review progress, and keep a streak.',
+    detail:
+      'Morning session extracts tasks, evening session reviews progress — using the OpenAI Realtime API over WebRTC with audio streaming directly browser↔OpenAI. Architected the full stack: Next.js 15 (App Router) + TypeScript, Supabase (Postgres + Auth + RLS), Vercel Cron for timed notifications, and Resend for email reminders — server only mints ephemeral tokens, keeping latency minimal and costs lean.',
+    highlight: 'Server only mints ephemeral tokens — low latency, lean costs.',
+    color: '#d5ff3e',
+    href: 'https://github.com/vinithwade/Lexora',
   },
 ]
 
