@@ -30,7 +30,7 @@ export function Projects() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="group block border-t border-white/10 pt-4"
+            className="group block border-t border-black/10 pt-4"
           >
             <p className="caption text-paper">{p.tag}</p>
             <h3 className="display text-xl sm:text-2xl text-paper mt-2 leading-tight">

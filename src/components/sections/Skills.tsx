@@ -74,7 +74,7 @@ const groups: Group[] = [
   },
 ]
 
-const logoUrl = (slug: string, color = 'faf1e8') =>
+const logoUrl = (slug: string, color = '181410') =>
   `https://cdn.simpleicons.org/${slug}/${color}`
 
 function InlineLogo({
@@ -122,7 +122,7 @@ export function Skills() {
         The tools I <span className="display-italic text-accent">reach for</span>.
       </motion.h2>
 
-      <dl className="divide-y divide-white/10 border-y border-white/10">
+      <dl className="divide-y divide-black/10 border-y border-black/10">
         {groups.map((g, gi) => (
           <motion.div
             key={g.title}

@@ -96,7 +96,7 @@ export function StickerBoard() {
 
       <div
         ref={containerRef}
-        className="relative w-full h-[260px] sm:h-[320px] rounded-xl border border-dashed border-white/10 bg-ink/40 overflow-hidden cursor-crosshair"
+        className="relative w-full h-[260px] sm:h-[320px] rounded-xl border border-dashed border-black/10 bg-ink/40 overflow-hidden cursor-crosshair"
         style={{
           backgroundImage:
             'radial-gradient(circle at 50% 50%, rgba(255,125,77,0.05), transparent 70%)',

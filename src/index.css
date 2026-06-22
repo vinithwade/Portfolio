@@ -5,23 +5,25 @@
   --font-serif: 'Fraunces', ui-serif, Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  /* WARM EDITORIAL DARK */
-  --color-ink: #0c0a09;
-  --color-ink-2: #141110;
-  --color-ink-3: #1c1816;
-  --color-line: rgb(250 248 245 / 0.10);
-  --color-line-2: rgb(250 248 245 / 0.20);
-  --color-line-3: rgb(250 248 245 / 0.35);
+  /* WARM EDITORIAL LIGHT */
+  /* "ink" tokens are now the page/surface backgrounds (warm off-white) */
+  --color-ink: #faf8f4;
+  --color-ink-2: #f3efe6;
+  --color-ink-3: #ebe6d9;
+  --color-line: rgb(26 22 20 / 0.10);
+  --color-line-2: rgb(26 22 20 / 0.18);
+  --color-line-3: rgb(26 22 20 / 0.30);
 
-  --color-paper: #f5f1e8;
-  --color-ivory: #ebe6d8;
-  --color-dim: #9a9388;
-  --color-muted: #6f685e;
-  --color-faint: #45403a;
+  /* "paper/ivory" tokens are now the foreground text (near-black warm) */
+  --color-paper: #181410;
+  --color-ivory: #2e2822;
+  --color-dim: #6b645b;
+  --color-muted: #8c8378;
+  --color-faint: #b3aa9d;
 
-  --accent: #e87a45;
-  --accent-2: #d4631d;
-  --accent-soft: rgba(232, 122, 69, 0.10);
+  --accent: #d4631d;
+  --accent-2: #b04e10;
+  --accent-soft: rgba(212, 99, 29, 0.12);
 }
 
 @layer base {
@@ -43,7 +45,7 @@
     @apply overflow-x-hidden;
   }
 
-  ::selection { background: var(--accent); color: var(--color-ink); }
+  ::selection { background: var(--accent); color: #fff; }
   ::-webkit-scrollbar { width: 0; display: none; }
 }
 
@@ -133,7 +135,29 @@
     text-underline-offset: 3px;
   }
   .prose-body a:hover { color: var(--accent-2); }
-  .prose-body em { font-style: italic; }
+  /* Key phrases in prose are highlighted with the accent */
+  .prose-body em {
+    font-style: italic;
+    color: var(--accent-2);
+    font-weight: 500;
+  }
+
+  /* Highlight swatch — draws the eye to a key fact about me */
+  .hl {
+    background: linear-gradient(transparent 62%, var(--accent-soft) 62%);
+    color: var(--color-paper);
+    padding: 0 0.06em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .hl-strong {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.04em 0.3em;
+    border-radius: 3px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
 
   /* Underline link */
   .link {
@@ -178,8 +202,8 @@
     inset: 0;
     pointer-events: none;
     z-index: 60;
-    opacity: 0.04;
-    mix-blend-mode: overlay;
+    opacity: 0.03;
+    mix-blend-mode: multiply;
     background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
     background-size: 220px 220px;
   }

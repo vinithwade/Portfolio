@@ -51,7 +51,7 @@ export function StarSketch() {
         onClick={drop}
         onMouseMove={move}
         onMouseLeave={() => setHover(null)}
-        className="relative w-full h-[300px] sm:h-[360px] lg:h-[420px] rounded-2xl border border-dashed border-white/15 overflow-hidden cursor-crosshair"
+        className="relative w-full h-[300px] sm:h-[360px] lg:h-[420px] rounded-2xl border border-dashed border-black/15 overflow-hidden cursor-crosshair"
         style={{
           background:
             'radial-gradient(ellipse at center, rgba(232,122,69,0.06), transparent 70%)',
@@ -98,7 +98,7 @@ export function StarSketch() {
               y1={stars[stars.length - 1].y}
               x2={hover.x}
               y2={hover.y}
-              stroke="rgba(255,255,255,0.15)"
+              stroke="rgba(26,22,20,0.20)"
               strokeWidth={0.6}
               strokeDasharray="2 3"
             />
@@ -116,12 +116,12 @@ export function StarSketch() {
             style={{ left: s.x, top: s.y }}
           >
             <span
-              className="block rounded-full bg-white"
+              className="block rounded-full bg-accent"
               style={{
-                width: `${s.size}px`,
-                height: `${s.size}px`,
+                width: `${s.size + 1}px`,
+                height: `${s.size + 1}px`,
                 boxShadow:
-                  '0 0 10px rgba(255,255,255,0.9), 0 0 20px rgba(232,122,69,0.55)',
+                  '0 0 8px rgba(212,99,29,0.55), 0 0 16px rgba(212,99,29,0.35)',
               }}
             />
             <span className="absolute -top-3 left-3 text-[9px] font-mono text-faint tabular-nums">
@@ -137,8 +137,8 @@ export function StarSketch() {
             style={{ left: hover.x, top: hover.y }}
           >
             <span
-              className="block w-2 h-2 rounded-full border border-white/40"
-              style={{ background: 'rgba(255,255,255,0.10)' }}
+              className="block w-2 h-2 rounded-full border border-black/30"
+              style={{ background: 'rgba(212,99,29,0.15)' }}
             />
           </span>
         )}

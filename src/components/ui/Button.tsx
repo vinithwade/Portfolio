@@ -20,8 +20,8 @@ export function Button({
 }: ButtonProps) {
   const variantClass =
     variant === 'primary'
-      ? 'bg-[color:var(--color-paper)] text-[color:var(--color-ink)] hover:bg-white'
-      : 'bg-transparent text-paper border border-[color:var(--color-line-2)] hover:bg-white/5'
+      ? 'bg-[color:var(--color-paper)] text-[color:var(--color-ink)] hover:bg-[color:var(--accent)] hover:text-white'
+      : 'bg-transparent text-paper border border-[color:var(--color-line-2)] hover:bg-black/5'
 
   const wrapperClasses = `inline-flex items-center gap-2.5 rounded-full px-6 py-3.5 text-sm tracking-tight transition-colors duration-300 ${variantClass} ${className}`
 
