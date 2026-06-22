@@ -43,7 +43,7 @@ export function Achievements() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-30px' }}
             transition={{ duration: 0.5, delay: i * 0.06 }}
-            className="grid grid-cols-12 gap-6 border-b border-white/10 pb-6"
+            className="grid grid-cols-12 gap-6 border-b border-black/10 pb-6"
           >
             <span className="col-span-2 md:col-span-1 caption text-faint tabular-nums">
               {String(i + 1).padStart(2, '0')}

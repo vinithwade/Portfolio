@@ -32,7 +32,7 @@ export function About() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="col-span-12 md:col-span-4"
         >
-          <div className="w-full max-w-xs aspect-[4/5] overflow-hidden rounded-sm border border-white/15">
+          <div className="w-full max-w-xs aspect-[4/5] overflow-hidden rounded-sm border border-black/15">
             <img
               src={site.photo}
               alt={site.name}

@@ -12,8 +12,8 @@ const links = [
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const { scrollY } = useScroll()
-  const bg = useTransform(scrollY, [0, 80], ['rgba(12,10,9,0)', 'rgba(12,10,9,0.85)'])
-  const border = useTransform(scrollY, [0, 80], ['rgba(0,0,0,0)', 'rgba(245,241,232,0.08)'])
+  const bg = useTransform(scrollY, [0, 80], ['rgba(250,248,244,0)', 'rgba(250,248,244,0.85)'])
+  const border = useTransform(scrollY, [0, 80], ['rgba(0,0,0,0)', 'rgba(26,22,20,0.10)'])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''

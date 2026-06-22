@@ -187,7 +187,7 @@ export function HorizontalScroll({ children }: Props) {
               className={`block h-px transition-all rounded-full ${
                 index === i
                   ? 'w-10 bg-accent'
-                  : 'w-5 bg-white/20 group-hover:bg-white/50'
+                  : 'w-5 bg-black/20 group-hover:bg-black/50'
               }`}
             />
           </button>

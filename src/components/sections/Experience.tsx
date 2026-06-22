@@ -39,7 +39,7 @@ export function Experience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.6, delay: i * 0.08 }}
-            className="grid grid-cols-12 gap-6 border-b border-white/10 pb-12"
+            className="grid grid-cols-12 gap-6 border-b border-black/10 pb-12"
           >
             <div className="col-span-12 md:col-span-3">
               <p className="caption text-paper">{exp.period}</p>

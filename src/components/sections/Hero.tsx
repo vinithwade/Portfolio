@@ -56,12 +56,12 @@ export function Hero() {
             className="prose-body mt-8 max-w-xl"
           >
             <p>
-              I&apos;m a 21-year-old developer based in Hyderabad, India —
-              currently studying Information Technology at{' '}
+              I&apos;m a <em>21-year-old developer</em> based in Hyderabad, India
+              — currently studying Information Technology at{' '}
               <em>Vardhaman College of Engineering</em>. I build full-stack and
               AI-driven products. Right now I&apos;m{' '}
-              <em>open to joining a startup team</em> where I can ship from day
-              one.
+              <span className="hl-strong">open to joining a startup team</span>{' '}
+              where I can ship from day one.
             </p>
             <p>
               I started on the web, drifted into AI, and stayed for the
