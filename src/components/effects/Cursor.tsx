@@ -1,9 +1,10 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 type CursorState = 'default' | 'link' | 'view' | 'send' | 'drag'
 
 export function Cursor() {
+  const reduceMotion = useReducedMotion()
   const x = useMotionValue(-100)
   const y = useMotionValue(-100)
   const sx = useSpring(x, { stiffness: 600, damping: 50, mass: 0.5 })
@@ -14,7 +15,9 @@ export function Cursor() {
 
   const [state, setState] = useState<CursorState>('default')
   const [label, setLabel] = useState<string>('')
-  const [supportsHover, setSupportsHover] = useState(true)
+  const [supportsHover, setSupportsHover] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(hover: hover)').matches : true
+  )
 
   const scale = useTransform(() => {
     if (state === 'view' || state === 'send') return 1
@@ -24,7 +27,11 @@ export function Cursor() {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    setSupportsHover(window.matchMedia('(hover: hover)').matches)
+    const mq = window.matchMedia('(hover: hover)')
+    setSupportsHover(mq.matches)
+    const onChange = () => setSupportsHover(mq.matches)
+    mq.addEventListener?.('change', onChange)
+    return () => mq.removeEventListener?.('change', onChange)
 
     let lastTarget: Element | null = null
 
@@ -80,7 +87,7 @@ export function Cursor() {
     }
   }, [x, y])
 
-  if (!supportsHover) return null
+  if (reduceMotion || !supportsHover) return null
 
   const ringSize = state === 'view' || state === 'send' ? 88 : state === 'link' ? 44 : 36
 
@@ -108,13 +115,13 @@ export function Cursor() {
           style={{
             background:
               state === 'view' || state === 'send'
-                ? 'rgba(245, 240, 233, 0.96)'
+                ? 'rgba(255,255,255,0.96)'
                 : 'transparent',
             border:
               state === 'view' || state === 'send'
                 ? 'none'
-                : '1px solid rgba(245, 240, 233, 0.55)',
-            color: '#08080a',
+                : '1px solid rgba(255,255,255,0.55)',
+            color: '#000',
           }}
         >
           {(state === 'view' || state === 'send') && (
@@ -139,7 +146,7 @@ export function Cursor() {
       >
         <motion.div
           style={{ scale }}
-          className="w-full h-full rounded-full bg-[color:var(--color-paper)]"
+          className="w-full h-full rounded-full bg-white"
         />
       </motion.div>
     </>

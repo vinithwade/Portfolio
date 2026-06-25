@@ -9,12 +9,13 @@ declare global {
 
 export function SmoothScroll() {
   useEffect(() => {
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: prefersReduced ? 0.1 : 1.15,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
+      smoothWheel: !prefersReduced,
       wheelMultiplier: 1,
-      touchMultiplier: 1.5,
+      touchMultiplier: prefersReduced ? 1 : 1.5,
     })
     window.__lenis = lenis
 

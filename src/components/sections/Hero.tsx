@@ -1,135 +1,51 @@
-import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
-import { site } from '../../data/content'
-import { GithubIcon, InstagramIcon, LinkedinIcon, XIcon } from '../ui/BrandIcons'
-import { StarSketch } from '../ui/StarSketch'
+import { motion, useReducedMotion } from 'framer-motion'
+import { reducedTransition } from '../../lib/motion'
 
 export function Hero() {
+  const reduceMotion = useReducedMotion()
+
   return (
-    <section
-      id="hero"
-      className="scene relative h-full flex flex-col justify-center container-page py-10"
-    >
-      <div className="grid grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* LEFT — text */}
-        <div className="col-span-12 lg:col-span-7">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="caption flex items-center gap-3 mb-6"
-          >
-            <span className="live-dot pulse-dot" />
-            Open for work · MMXXV
-          </motion.p>
+    <section id="hero" className="section flex flex-col justify-center">
+      {/* Typography block — stronger hierarchy, letter-focused, aligned with other sections' content via container-page */}
+      <div className="max-w-[52ch]">
+        <motion.h1
+          className="display tracking-[-0.04em] leading-[0.88]"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={reduceMotion ? reducedTransition : { duration: 0.7, ease: [0.21, 0.92, 0.26, 1] }}
+        >
+          Vinith Wade
+        </motion.h1>
 
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.9 }}
-            className="display text-[13vw] sm:text-[11vw] lg:text-[8vw] xl:text-[7.5vw]"
-          >
-            <motion.span
-              initial={{ y: '110%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] as const }}
-              className="inline-block"
-            >
-              Vinith
-            </motion.span>
-            <br />
-            <motion.span
-              initial={{ y: '110%' }}
-              animate={{ y: 0 }}
-              transition={{ duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] as const }}
-              className="inline-block display-italic text-accent"
-            >
-              Wade
-            </motion.span>
-            <span className="text-paper">.</span>
-          </motion.h1>
+        <motion.p
+          className="mt-4 text-[15.5px] max-w-[34ch] text-white/90 leading-tight tracking-[-0.01em]"
+          initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={reduceMotion ? reducedTransition : { duration: 0.65, delay: 0.1, ease: [0.21, 0.92, 0.26, 1] }}
+        >
+          I make things that feel like they were always meant to exist.
+        </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="prose-body mt-8 max-w-xl"
-          >
-            <p>
-              I&apos;m a <em>21-year-old developer</em> based in Hyderabad, India
-              — currently studying Information Technology at{' '}
-              <em>Vardhaman College of Engineering</em>. I build full-stack and
-              AI-driven products. Right now I&apos;m{' '}
-              <span className="hl-strong">open to joining a startup team</span>{' '}
-              where I can ship from day one.
-            </p>
-            <p>
-              I started on the web, drifted into AI, and stayed for the
-              products. What I really want is to make things people remember.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
-            className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 font-sans text-[14px]"
-          >
-            <a href="#projects" className="link inline-flex items-center gap-2 group">
-              See selected work
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a href={`mailto:${site.email}`} className="link inline-flex items-center gap-2 group">
-              Get in touch
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-            </a>
-            <a
-              href={site.github}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 link"
-            >
-              <GithubIcon className="w-4 h-4" />
-              Github
-            </a>
-            <a
-              href={site.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 link"
-            >
-              <LinkedinIcon className="w-4 h-4" />
-              Linkedin
-            </a>
-            <a
-              href={site.x}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 link"
-            >
-              <XIcon className="w-3.5 h-3.5" />
-              X
-            </a>
-            <a
-              href={site.instagram}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-2 link"
-            >
-              <InstagramIcon className="w-4 h-4" />
-              Instagram
-            </a>
-          </motion.div>
+        {/* Bio text — refined measure */}
+        <div className="mt-6 max-w-[48ch] prose text-[14.8px] leading-[1.72]">
+          <p>
+            It began at sixteen with a few shaky lines. One honest attempt led to another — until the things I made started feeling like they had always belonged in the world.
+          </p>
+          <p className="mt-3.5">
+            I shape quiet tools that listen closely, remember what matters, and help people finish the work that counts. The best of it feels generous. It slips into the day and leaves you lighter.
+          </p>
         </div>
 
-        {/* RIGHT — interactive constellation sketch */}
+        {/* Bottom links — clean, perfectly spaced */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.9, delay: 0.4 }}
-          className="col-span-12 lg:col-span-5"
+          className="mt-6 flex items-center gap-x-4 text-sm font-mono tracking-[0.08em]"
+          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={reduceMotion ? reducedTransition : { duration: 0.6, delay: 0.22, ease: [0.21, 0.92, 0.26, 1] }}
         >
-          <StarSketch />
+          <a href="#projects" className="link">marks</a>
+          <span className="text-white/25">·</span>
+          <a href="#contact" className="link">say hello</a>
         </motion.div>
       </div>
     </section>

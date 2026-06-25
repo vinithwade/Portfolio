@@ -86,10 +86,10 @@ export function StickerBoard() {
   }, [total])
 
   return (
-    <div className="card p-4 sm:p-5 relative overflow-hidden">
+    <div className="craft-card p-4 sm:p-5 relative overflow-hidden">
       <div className="flex items-center justify-between mb-3">
-        <p className="label-sm">cursor field</p>
-        <p className="label-sm text-faint">
+        <p className="caption">cursor field</p>
+        <p className="caption text-faint">
           {cols} × {rows}
         </p>
       </div>
@@ -139,7 +139,7 @@ export function StickerBoard() {
         </span>
       </div>
 
-      <p className="mt-3 label-sm text-dim display-italic">
+      <p className="mt-3 caption text-dim display-italic">
         — just move your cursor over it.
       </p>
     </div>

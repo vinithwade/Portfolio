@@ -4,26 +4,6 @@
   --font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
   --font-serif: 'Fraunces', ui-serif, Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-
-  /* WARM EDITORIAL LIGHT */
-  /* "ink" tokens are now the page/surface backgrounds (warm off-white) */
-  --color-ink: #faf8f4;
-  --color-ink-2: #f3efe6;
-  --color-ink-3: #ebe6d9;
-  --color-line: rgb(26 22 20 / 0.10);
-  --color-line-2: rgb(26 22 20 / 0.18);
-  --color-line-3: rgb(26 22 20 / 0.30);
-
-  /* "paper/ivory" tokens are now the foreground text (near-black warm) */
-  --color-paper: #181410;
-  --color-ivory: #2e2822;
-  --color-dim: #6b645b;
-  --color-muted: #8c8378;
-  --color-faint: #b3aa9d;
-
-  --accent: #d4631d;
-  --accent-2: #b04e10;
-  --accent-soft: rgba(212, 99, 29, 0.12);
 }
 
 @layer base {
@@ -33,20 +13,27 @@
 
   html.lenis, html.lenis body { height: auto; }
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
-  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-  .lenis.lenis-stopped { overflow: hidden; }
 
   body {
-    background: var(--color-ink);
-    color: var(--color-paper);
-    font-family: var(--font-serif);
-    font-feature-settings: 'ss01';
+    background: #000;
+    color: #fff;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     @apply overflow-x-hidden;
+    /* Respect safe areas on notched phones */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
-  ::selection { background: var(--accent); color: #fff; }
+  /* Normal cursor — custom cursor removed per request */
+
+  ::selection { background: #fff; color: #000; }
   ::-webkit-scrollbar { width: 0; display: none; }
+
+  :focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
 }
 
 @layer utilities {
@@ -54,168 +41,342 @@
   .font-serif { font-family: var(--font-serif); }
   .font-mono { font-family: var(--font-mono); }
 
-  .text-paper { color: var(--color-paper); }
-  .text-ivory { color: var(--color-ivory); }
-  .text-dim { color: var(--color-dim); }
-  .text-muted { color: var(--color-muted); }
-  .text-faint { color: var(--color-faint); }
-  .text-ink { color: var(--color-ink); }
-  .text-accent { color: var(--accent); }
-
-  .bg-paper { background: var(--color-paper); }
-  .bg-ink { background: var(--color-ink); }
-  .bg-ink-2 { background: var(--color-ink-2); }
-  .bg-ink-3 { background: var(--color-ink-3); }
-  .bg-accent { background: var(--accent); }
-
-  /* Editorial caption / small mono label */
-  .caption {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-dim);
-  }
-
-  /* Reading container — narrow for prose */
-  .reading {
-    @apply mx-auto w-full;
-    max-width: 64rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-  @media (min-width: 640px) {
-    .reading {
-      padding-left: 2.5rem;
-      padding-right: 2.5rem;
-    }
-  }
-
-  /* Wider editorial container */
   .container-page {
-    @apply mx-auto w-full px-6 sm:px-10 lg:px-14;
-    max-width: 80rem;
+    @apply mx-auto w-full max-w-3xl px-6;
   }
 
-  .scene { position: relative; isolation: isolate; }
-  .hair-t { border-top: 1px solid var(--color-line); }
-  .hair-b { border-bottom: 1px solid var(--color-line); }
+  /* =========================================
+     STRICT 2-COLOR TYPOGRAPHY SYSTEM
+     Black background (#000) + White text (#fff)
+     Different strong font styles for every section
+  ========================================= */
 
-  /* DISPLAY — serif Fraunces */
+  /* Huge serif display — primary signature */
   .display {
     font-family: var(--font-serif);
-    font-optical-sizing: auto;
-    font-variation-settings: 'opsz' 144, 'SOFT' 40;
+    font-size: clamp(3rem, 10vw, 6.2rem);
     font-weight: 400;
-    letter-spacing: -0.025em;
-    line-height: 1;
-    color: var(--color-paper);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
   }
-  .display-italic {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
-    font-weight: 400;
+
+  /* Strong readable heading — different voice */
+  .heading {
+    font-family: var(--font-sans);
+    font-size: clamp(1.45rem, 5.4vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.2;
     letter-spacing: -0.02em;
   }
 
-  /* PROSE — body reading style */
-  .prose-body {
-    font-family: var(--font-serif);
-    font-size: 1.0625rem;
-    line-height: 1.65;
-    color: var(--color-ivory);
-    font-feature-settings: 'ss01';
+  /* Lede / intro text — slightly larger, excellent measure */
+  .lede {
+    font-size: clamp(1rem, 3.8vw, 1.1rem);
+    line-height: 1.68;
+    max-width: 58ch;
   }
-  .prose-body p + p { margin-top: 1.2em; }
-  .prose-body a {
-    color: var(--accent);
+
+  /* Body prose — focus on letters, calm reading */
+  .prose {
+    font-size: clamp(0.96rem, 3.7vw, 1.02rem);
+    line-height: 1.72;
+    max-width: 66ch;
+  }
+  .prose p + p { margin-top: 1.35em; }
+
+  /* Small meta / labels — mono for distinction */
+  .meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* Section wrapper — full viewport per section so only that section's content is visible at 100% screen.
+     Refined paddings: more top air (esp. clears mobile fixed header), moderate bottom to prevent excessive blank space after content while min-height ensures next section stays out of viewport at 100%. */
+  .section {
+    min-height: 100dvh;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    /* Offset for anchor navigation + fixed header on mobile; aids smoother in-page jumps */
+    scroll-margin-top: 3rem;
+    scroll-snap-align: start;
+  }
+
+  .section:last-of-type {
+    min-height: auto;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Mobile refinements: sufficient top padding under fixed header + breathing; tighter but ample bottom */
+  @media (max-width: 1023px) {
+    .section {
+      min-height: 100dvh;
+      padding-top: 4.25rem;
+      padding-bottom: 4rem;
+      scroll-margin-top: 4rem;
+    }
+
+    .section:last-of-type {
+      min-height: auto;
+      padding-top: 4.25rem;
+      padding-bottom: 2.5rem;
+    }
+  }
+
+  /* Subtle separator between full-screen sections. Quieter opacity for smoother visual rhythm; line sits at section boundary */
+  .section + .section {
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* Clean link — underline only, pure white */
+  .link {
+    color: #fff;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
   }
-  .prose-body a:hover { color: var(--accent-2); }
-  /* Key phrases in prose are highlighted with the accent */
-  .prose-body em {
-    font-style: italic;
-    color: var(--accent-2);
-    font-weight: 500;
-  }
-
-  /* Highlight swatch — draws the eye to a key fact about me */
-  .hl {
-    background: linear-gradient(transparent 62%, var(--accent-soft) 62%);
-    color: var(--color-paper);
-    padding: 0 0.06em;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-  }
-  .hl-strong {
-    background: var(--accent);
-    color: #fff;
-    padding: 0.04em 0.3em;
-    border-radius: 3px;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-  }
-
-  /* Underline link */
-  .link {
-    color: var(--color-paper);
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 4px;
-    transition: color 0.3s ease, text-decoration-color 0.3s ease;
-    text-decoration-color: var(--color-line-2);
-  }
   .link:hover {
-    color: var(--accent);
-    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1.5px;
+    /* subtle micro */
+    opacity: 0.92;
   }
 
-  /* Inline tag */
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--color-dim);
+  /* Full-screen sections: snap so only one section's content is aligned/visible at a time on 100% screen */
+  main {
+    scroll-snap-type: y mandatory;
   }
 
-  /* Live dot — subtle */
-  .live-dot {
+  /* Constellations — beautiful stacked cards evoking star maps / night sky connections.
+     Strict 2-color. Typography forward. Hover lifts + border brightens like a star coming into focus. */
+  .constellation-card {
+    padding: 1.35rem 1.1rem 1.3rem;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: border-color 180ms cubic-bezier(0.23, 1, 0.32, 1),
+                transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+  }
+  .constellation-card + .constellation-card {
+    margin-top: 0.65rem;
+  }
+  .constellation-card:hover {
+    border-color: rgba(255,255,255,0.32);
+  }
+  .constellation-card:hover .constellation-star {
+    opacity: 1;
+  }
+
+  /* Tiny star marker that feels like a plotted point in the sky */
+  .constellation-star {
+    position: absolute;
+    top: 1.15rem;
+    right: 1.15rem;
     width: 5px;
     height: 5px;
-    border-radius: 999px;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
-    display: inline-block;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.35;
+    transition: opacity 180ms ease;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15);
   }
-  @keyframes pulseDot {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.6); }
-  }
-  .pulse-dot { animation: pulseDot 2.4s ease-in-out infinite; }
-
-  /* Subtle grain */
-  body::before {
+  .constellation-star::after {
     content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 13px; height: 1px;
+    background: rgba(255,255,255,0.12);
+    transform: translate(-50%, -50%) rotate(45deg);
+    pointer-events: none;
+  }
+
+  /* Subtle label for tag */
+  .constellation-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.42);
+  }
+
+  /* Modal — minimal full-screen overlay, pure black/white, centered card */
+  .constellation-modal {
     position: fixed;
     inset: 0;
-    pointer-events: none;
     z-index: 60;
-    opacity: 0.03;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.95' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    background-size: 220px 220px;
+    background: rgba(0,0,0,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+  }
+  .constellation-modal-card {
+    background: #000;
+    border: 1px solid rgba(255,255,255,0.18);
+    max-width: 38rem;
+    width: 100%;
+    max-height: 88dvh;
+    overflow-y: auto;
+    padding: 2rem 1.6rem 2.1rem;
+    position: relative;
+  }
+  .constellation-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.7);
+    background: transparent;
+    cursor: pointer;
+    transition: all 120ms ease;
+  }
+  .constellation-modal-close:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.55);
+  }
+  .constellation-detail {
+    margin-top: 1.35rem;
+    font-size: 0.97rem;
+    line-height: 1.68;
+    color: rgba(255,255,255,0.82);
+  }
+  .constellation-detail + .constellation-detail {
+    margin-top: 1.1rem;
+  }
+  .constellation-detail h4 {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 0.35rem;
+  }
+  .constellation-detail ul {
+    padding-left: 1rem;
+    list-style: none;
+  }
+  .constellation-detail li {
+    position: relative;
+    padding-left: 0.35rem;
+    margin-bottom: 0.28rem;
+  }
+  .constellation-detail li::before {
+    content: '·';
+    position: absolute;
+    left: -0.1rem;
+    color: rgba(255,255,255,0.55);
   }
 
-  /* Progress bar — minimal */
-  .progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 1px;
-    background: var(--accent);
-    transform-origin: 0% 50%;
-    z-index: 70;
+  /* Experience block — different hanging style. Slightly tightened for vertical rhythm & to avoid overflow on full-viewport sections */
+  .exp-block {
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
   }
+
+  /* Skills flow — horizontal clean list */
+  .skills-group {
+    margin-top: 1.1rem;
+  }
+
+  /* Achievement sentence list — block style. Tightened padding for better fit + rhythm (esp. before Contact) */
+  .achieve-item {
+    font-size: 1.03rem;
+    line-height: 1.7;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+  }
+
+  /* Big email signature in contact */
+  .contact-email {
+    font-family: var(--font-serif);
+    font-size: clamp(1.65rem, 6vw, 2.35rem);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    transition: letter-spacing 200ms ease, opacity 150ms ease;
+  }
+  .contact-email:hover {
+    letter-spacing: -0.01em;
+    opacity: 0.9;
+  }
+
+  /* Simple divider using space + line — subtle */
+  .rule {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Touch-friendly interactive targets (min 44px recommended) */
+  .touch-target {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Mobile refinements for key blocks — consistent with global tightenings */
+  @media (max-width: 1023px) {
+    .constellation-card {
+      padding-top: 1.35rem;
+      padding-bottom: 1.3rem;
+    }
+    .exp-block {
+      padding-top: 0.9rem;
+      padding-bottom: 0.9rem;
+    }
+    .achieve-item {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      font-size: 0.985rem;
+    }
+    .skills-group {
+      margin-top: 0.9rem;
+    }
+    .container-page {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+    body { cursor: auto !important; }
+  }
+
+  /* =========================================
+     TASK 8: SUBTLE CREATIVE ENHANCEMENTS
+     Pure monochrome (white on black only). Letter-focused, non-distracting.
+  ========================================= */
+
+  /* 1. Subtle noise texture — very fine grain like old paper or film. Ultra-low opacity to not fight typography */
+  .global-noise {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(rgba(255,255,255,0.028) 0.6px, transparent 0),
+      radial-gradient(rgba(255,255,255,0.018) 0.9px, transparent 0);
+    background-size: 2.6px 2.6px, 4.2px 4.2px;
+    background-position: 0 0, 1.1px 1.6px;
+    opacity: 0.65;
+    mix-blend-mode: screen;
+  }
+
+  /* 2. Letter-focused refinement to existing project hover states (constellation-cards) */
+  .constellation-card h3 {
+    transition: letter-spacing 160ms ease-out;
+  }
+  .constellation-card:hover h3 {
+    letter-spacing: -0.007em;
+  }
+
+  /* Normal system cursor (custom cursor disabled) */
 }
