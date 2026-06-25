@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useReducedMotion } from 'framer-motion'
 import type { MouseEvent, ReactNode } from 'react'
 import { useRef } from 'react'
 
@@ -20,6 +20,8 @@ export function Magnetic({
   onClick,
 }: MagneticProps) {
   const ref = useRef<HTMLElement | null>(null)
+  const reduceMotion = useReducedMotion()
+  const effectiveStrength = reduceMotion ? 0 : strength
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const sx = useSpring(x, { stiffness: 260, damping: 20, mass: 0.6 })
@@ -28,11 +30,12 @@ export function Magnetic({
   const handleMove = (e: MouseEvent) => {
     const el = ref.current
     if (!el) return
+    if (effectiveStrength === 0) return
     const rect = el.getBoundingClientRect()
     const offsetX = e.clientX - (rect.left + rect.width / 2)
     const offsetY = e.clientY - (rect.top + rect.height / 2)
-    x.set(offsetX * strength)
-    y.set(offsetY * strength)
+    x.set(offsetX * effectiveStrength)
+    y.set(offsetY * effectiveStrength)
   }
 
   const handleLeave = () => {

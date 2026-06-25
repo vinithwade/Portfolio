@@ -1,57 +1,42 @@
-import { motion } from 'framer-motion'
-
-const experiences = [
-  {
-    role: 'Software Developer Intern',
-    company: 'Behooked.co',
-    period: 'Apr 2025 — Present',
-    description:
-      'Working on a video automation and caption rendering engine. Built a reusable React caption component registry, an AI transcription + emphasis tagging pipeline, and multi-format support for YouTube, Shorts, Reels, Feed and Square.',
-  },
-  {
-    role: 'Full-Stack Developer Intern',
-    company: 'Digital Blinc',
-    period: 'Jun 2025 — Jul 2025',
-    description:
-      'Backend API performance, auth flows, and responsive frontends. Optimized Express.js routes, improved MongoDB queries, integrated JWT auth, and built React + Redux interfaces.',
-  },
-]
+import { motion, useReducedMotion } from 'framer-motion'
+import { reducedTransition } from '../../lib/motion'
 
 export function Experience() {
-  return (
-    <section id="experience" className="scene reading h-full flex flex-col justify-center py-16">
-      <p className="caption mb-8">Experience</p>
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.8 }}
-        className="display text-3xl sm:text-4xl lg:text-5xl text-paper mb-12 leading-[1.1]"
-      >
-        Where I&apos;ve <span className="display-italic text-accent">shown up</span>.
-      </motion.h2>
+  const reduceMotion = useReducedMotion()
 
-      <div className="space-y-12">
-        {experiences.map((exp, i) => (
-          <motion.article
-            key={exp.company}
-            initial={{ opacity: 0, y: 16 }}
+  return (
+    <section id="experience" className="section">
+      <div className="meta mb-3">CHAPTERS</div>
+      <h2 className="heading">Where the work has taken me.</h2>
+
+      <div className="mt-6 sm:mt-7 space-y-6 sm:space-y-7">
+        {[
+          {
+            period: 'Apr 2025 — Present',
+            role: 'Software Developer Intern',
+            place: 'Behooked.co',
+            text: 'Helped storytellers spend less time wrestling with the tools and more on the feeling of their work. Built pieces that turned spoken words into beautiful, timed captions across the ways people watch. It felt like giving creators back their hours.',
+          },
+          {
+            period: 'Jun — Jul 2025',
+            role: 'Full-Stack Developer Intern',
+            place: 'Digital Blinc',
+            text: 'Stepped into a fast-moving team and made the invisible parts feel steady. Tuned the quiet connections between people and their data so nothing stumbled.',
+          },
+        ].map((e, idx) => (
+          <motion.div 
+            key={idx} 
+            className="exp-block"
+            initial={reduceMotion ? false : { opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, delay: i * 0.08 }}
-            className="grid grid-cols-12 gap-6 border-b border-black/10 pb-12"
+            viewport={{ once: true, margin: '-50px' }}
+            transition={reduceMotion ? reducedTransition : { duration: 0.5, delay: idx * 0.08, ease: 'easeOut' }}
           >
-            <div className="col-span-12 md:col-span-3">
-              <p className="caption text-paper">{exp.period}</p>
-            </div>
-            <div className="col-span-12 md:col-span-9">
-              <h3 className="display text-2xl sm:text-3xl text-paper">
-                {exp.role}{' '}
-                <span className="display-italic text-dim">at {exp.company}</span>
-              </h3>
-              <p className="prose-body mt-4 max-w-2xl">{exp.description}</p>
-            </div>
-          </motion.article>
+            <div className="font-mono text-xs tracking-[3px] text-white/50">{e.period}</div>
+            <div className="mt-1.5 sm:mt-2 text-[16px] sm:text-[17px] font-medium">{e.role}</div>
+            <div className="text-white/70 text-[14.5px] sm:text-[15px]">{e.place}</div>
+            <p className="prose mt-2.5 sm:mt-3 text-[14.5px] sm:text-[15px]">{e.text}</p>
+          </motion.div>
         ))}
       </div>
     </section>
