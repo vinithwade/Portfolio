@@ -53,7 +53,7 @@ export function Navbar() {
     <>
       {/* CREATIVE VERTICAL LEFT NAV — the "spine" of the portfolio */}
       {/* Different from standard top bar: a fixed elegant vertical column showcasing typography and the photo creatively */}
-      <aside className="hidden lg:flex fixed left-0 top-0 z-50 h-full w-[252px] flex-col bg-black border-r border-white/10">
+      <aside className="hidden lg:flex fixed left-0 top-0 z-50 h-full w-[252px] flex-col bg-white border-r border-black/10">
         {/* Photo in navbar only: rectangle, taller, touches top + left + right edges */}
         <div className="w-full h-[248px] overflow-hidden flex-shrink-0 relative">
           <motion.img 
@@ -69,7 +69,7 @@ export function Navbar() {
             transition={{ duration: reduceMotion ? 0.1 : 0.6, ease: [0.23, 1, 0.32, 1] }}
           />
           {/* Subtle bottom fade — elegant blend from photo into sidebar content */}
-          <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white/30 to-transparent pointer-events-none" />
         </div>
 
         {/* Content with refined internal spacing */}
@@ -87,11 +87,11 @@ export function Navbar() {
             className="overflow-hidden mb-6"
           >
             <a href="#hero" className="block group">
-              <div className="font-serif text-[31px] leading-none tracking-[-0.022em] text-white whitespace-nowrap">
+              <div className="font-serif text-[31px] leading-none tracking-[-0.022em] text-black whitespace-nowrap">
                 Vinith Wade
               </div>
               {/* Delicate rule */}
-              <div className="mt-2 h-px w-7 bg-white/20 group-hover:bg-white/35 transition-colors duration-200" />
+              <div className="mt-2 h-px w-7 bg-black/20 group-hover:bg-black/35 transition-colors duration-200" />
             </a>
           </motion.div>
 
@@ -107,8 +107,8 @@ export function Navbar() {
                     aria-current={isActive ? 'page' : undefined}
                     className={`text-[13px] font-mono tracking-[0.04em] transition-colors duration-150 ${
                       isActive 
-                        ? 'text-white' 
-                        : 'text-white/50 hover:text-white'
+                        ? 'text-black' 
+                        : 'text-black/50 hover:text-black'
                     }`}
                   >
                     {link.label}
@@ -121,14 +121,14 @@ export function Navbar() {
       </aside>
 
       {/* Mobile: Minimal top bar (no photo) — strengthened: taller tap targets, better contrast */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/10" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-black/10" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
         <div className="flex h-[60px] items-center justify-between px-5">
           <a href="#hero" className="font-serif text-[19px] tracking-[-0.018em] active:opacity-70 transition">
             Vinith Wade
           </a>
           <button 
             onClick={() => setOpen(!open)} 
-            className="font-mono text-[11px] tracking-[0.24em] text-white/70 hover:text-white active:text-white py-2.5 px-4 -mr-1 rounded transition touch-target"
+            className="font-mono text-[11px] tracking-[0.24em] text-black/70 hover:text-black active:text-black py-2.5 px-4 -mr-1 rounded transition touch-target"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -150,7 +150,7 @@ export function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0.01 : 0.18, ease: [0.22, 1, 0.36, 1] }}
             id="mobile-menu"
-            className="lg:hidden fixed inset-0 z-[60] bg-black"
+            className="lg:hidden fixed inset-0 z-[60] bg-white"
             style={{ paddingTop: 'calc(60px + env(safe-area-inset-top))' }}
             onClick={() => setOpen(false)}
             role="dialog"
@@ -169,7 +169,7 @@ export function Navbar() {
                 <div className="font-serif text-[26px] tracking-[-0.02em]">Vinith Wade</div>
                 <button
                   onClick={() => setOpen(false)}
-                  className="font-mono text-[11px] tracking-[0.26em] text-white/60 hover:text-white py-2 px-3 -mr-1 active:text-white transition touch-target"
+                  className="font-mono text-[11px] tracking-[0.26em] text-black/60 hover:text-black py-2 px-3 -mr-1 active:text-black transition touch-target"
                   aria-label="Close menu"
                 >
                   CLOSE
@@ -186,10 +186,10 @@ export function Navbar() {
                       href={link.href}
                       onClick={() => setOpen(false)}
                       aria-current={isActive ? 'page' : undefined}
-                      className={`touch-target flex items-center text-[20px] tracking-[-0.008em] border-b border-white/10 last:border-b-0 transition-all active:bg-white/5 ${
+                      className={`touch-target flex items-center text-[20px] tracking-[-0.008em] border-b border-black/10 last:border-b-0 transition-all active:bg-black/5 ${
                         isActive 
-                          ? 'text-white font-medium' 
-                          : 'text-white/85 hover:text-white active:text-white'
+                          ? 'text-black font-medium' 
+                          : 'text-black/85 hover:text-black active:text-black'
                       }`}
                     >
                       {link.label}
@@ -199,11 +199,11 @@ export function Navbar() {
               </div>
 
               {/* Email + Socials to match desktop experience */}
-              <div className="mt-9 pt-8 border-t border-white/10">
+              <div className="mt-9 pt-8 border-t border-black/10">
                 <a 
                   href={`mailto:${site.email}`} 
                   onClick={() => setOpen(false)} 
-                  className="touch-target inline-block text-[15px] tracking-[-0.01em] text-white/80 hover:text-white font-serif underline underline-offset-2 decoration-white/30 active:text-white"
+                  className="touch-target inline-block text-[15px] tracking-[-0.01em] text-black/80 hover:text-black font-serif underline underline-offset-2 decoration-black/30 active:text-black"
                 >
                   {site.email}
                 </a>
@@ -214,7 +214,7 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-white/55 hover:text-white active:text-white transition p-1 -m-1 touch-target"
+                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
                     aria-label="LinkedIn"
                   >
                     <LinkedinIcon className="w-5 h-5" />
@@ -224,7 +224,7 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-white/55 hover:text-white active:text-white transition p-1 -m-1 touch-target"
+                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
                     aria-label="GitHub"
                   >
                     <GithubIcon className="w-5 h-5" />
@@ -234,7 +234,7 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-white/55 hover:text-white active:text-white transition p-1 -m-1 touch-target"
+                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
                     aria-label="X"
                   >
                     <XIcon className="w-5 h-5" />
@@ -244,14 +244,14 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-white/55 hover:text-white active:text-white transition p-1 -m-1 touch-target"
+                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
                     aria-label="Instagram"
                   >
                     <InstagramIcon className="w-5 h-5" />
                   </a>
                 </div>
 
-                <div className="mt-1.5 text-[10px] text-white/40 tracking-[0.12em] font-mono">
+                <div className="mt-1.5 text-[10px] text-black/40 tracking-[0.12em] font-mono">
                   {site.location}
                 </div>
               </div>

@@ -28,7 +28,7 @@ export function Mobius({ size = 260, className = '' }: Props) {
             rx="92"
             ry="32"
             fill="none"
-            stroke="rgba(255,255,255,0.85)"
+            stroke="rgba(0,0,0,0.85)"
             strokeWidth="0.8"
           />
         </g>
@@ -43,7 +43,7 @@ export function Mobius({ size = 260, className = '' }: Props) {
             rx="80"
             ry="80"
             fill="none"
-            stroke="rgba(255,255,255,0.55)"
+            stroke="rgba(0,0,0,0.55)"
             strokeWidth="0.8"
           />
         </g>
@@ -58,7 +58,7 @@ export function Mobius({ size = 260, className = '' }: Props) {
             rx="70"
             ry="22"
             fill="none"
-            stroke="rgba(255,255,255,0.7)"
+            stroke="rgba(0,0,0,0.7)"
             strokeWidth="0.8"
           />
         </g>
@@ -69,13 +69,13 @@ export function Mobius({ size = 260, className = '' }: Props) {
             cy="100"
             r="96"
             fill="none"
-            stroke="rgba(255,255,255,0.18)"
+            stroke="rgba(0,0,0,0.18)"
             strokeWidth="0.5"
             strokeDasharray="2 6"
           />
         </g>
         {/* Center dot */}
-        <circle cx="100" cy="100" r="2.5" fill="rgba(255,255,255,0.95)" />
+        <circle cx="100" cy="100" r="2.5" fill="rgba(0,0,0,0.95)" />
       </svg>
     </div>
   )

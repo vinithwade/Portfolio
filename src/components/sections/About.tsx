@@ -13,7 +13,7 @@ export function About() {
           viewport={{ once: true, margin: '-80px' }}
           transition={reduceMotion ? reducedTransition : { duration: 0.5, ease: 'easeOut' }}
         >
-          <div className="font-mono text-[10px] tracking-[0.2em] text-white/50 mb-3">THE BEGINNING</div>
+          <div className="font-mono text-[10px] tracking-[0.2em] text-black/50 mb-3">THE BEGINNING</div>
 
           <div className="prose">
             <p className="text-[16px] sm:text-[17px] leading-[1.65]">

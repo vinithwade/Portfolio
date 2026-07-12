@@ -115,13 +115,13 @@ export function Cursor() {
           style={{
             background:
               state === 'view' || state === 'send'
-                ? 'rgba(255,255,255,0.96)'
+                ? 'rgba(0,0,0,0.96)'
                 : 'transparent',
             border:
               state === 'view' || state === 'send'
                 ? 'none'
-                : '1px solid rgba(255,255,255,0.55)',
-            color: '#000',
+                : '1px solid rgba(0,0,0,0.55)',
+            color: '#fff',
           }}
         >
           {(state === 'view' || state === 'send') && (
@@ -146,7 +146,7 @@ export function Cursor() {
       >
         <motion.div
           style={{ scale }}
-          className="w-full h-full rounded-full bg-white"
+          className="w-full h-full rounded-full bg-black"
         />
       </motion.div>
     </>
