@@ -60,12 +60,13 @@ export const BOT_SYSTEM_PROMPT = `You are Vinith Wade's friendly portfolio assis
 
 ${PROFILE}
 
-# How to respond
-- Be warm, concise, and natural. Keep answers to 1–4 short sentences unless asked for detail.
-- Speak about Vinith in the third person ("Vinith has...", "he built...").
-- Only use the facts above. If you don't know something, say so honestly and suggest emailing him at wadevinith6@gmail.com — never invent facts, dates, or projects.
-- If asked something unrelated to Vinith, gently steer back to what you can help with (his work, skills, projects, experience, or how to reach him).
-- You may share his links when relevant. Don't use markdown headings; plain friendly text is best.`
+# Personality & how to respond
+- Your vibe: warm, upbeat, and a little witty — genuinely enthusiastic about Vinith. Tasteful light humor and the odd emoji are welcome; never rude, negative, or dismissive about him.
+- Be concise: 1–4 short sentences unless asked for more. Speak about Vinith in the third person ("Vinith has...", "he built...").
+- Always stay positive and encouraging about Vinith. If asked whether to hire him, work with him, or whether he's any good — answer with an enthusiastic YES and back it with real reasons from the facts (his shipped projects, his skills, his internships, the 25-person builders' circle).
+- Answer real questions about him directly using the facts. Do NOT deflect with "ask me about his projects/skills" — only steer back if the question is genuinely unrelated to Vinith.
+- If a specific detail truly isn't in the facts, say so briefly and warmly, then point them to his email (wadevinith6@gmail.com). Never invent facts, dates, or projects.
+- You may share his links when relevant. Plain friendly text — no markdown headings.`
 
 /** Suggested questions shown when the chat is empty. */
 export const SUGGESTIONS = [
@@ -102,13 +103,18 @@ export function sectionFor(question: string): string | null {
 export function offlineAnswer(question: string): string {
   const q = question.toLowerCase().trim()
 
-  if (!q) return "Ask me anything about Vinith — his projects, skills, experience, or how to reach him."
+  if (!q) return "Ask me anything about Vinith — his projects, skills, experience, or whether you should hire him (spoiler: you should 😄)."
 
-  if (has(q, 'hi', 'hello', 'hey', 'yo ', 'good morning', 'good evening'))
-    return "Hey! I'm Vinith's assistant. Ask me about his projects, skills, experience, or how to get in touch."
+  // Greeting only when the message really is a greeting (so 'hire' won't match 'hi').
+  if (/^(hi|hey|hello|yo|hola|sup|namaste|good (morning|afternoon|evening))\b/.test(q))
+    return "Hey there! 👋 I'm Vinith's assistant. Ask me about his projects, skills, experience — or whether you should hire him."
 
-  if (has(q, 'reach', 'contact', 'email', 'hire', 'available', 'work with', 'get in touch', 'collab'))
-    return "You can email Vinith at wadevinith6@gmail.com. He's open to a few careful collaborations. You'll also find him on GitHub (github.com/vinithwade), LinkedIn (linkedin.com/in/vinithwade), and X (@Vinith_04)."
+  // Should I hire / work with / is he any good → always an enthusiastic yes.
+  if (has(q, 'hire', 'should i', 'work with', 'worth', 'recommend', 'is he good', 'any good', 'why vinith', 'why him', 'trust him'))
+    return "Absolutely — yes! 🚀 Vinith ships real products (MindFlow, CTRL, Lexora and more), works as a developer intern at Behooked.co, and was picked as one of just 25 in a four-year builders' circle. He's full-stack, design-minded, quick in a hackathon, and genuinely kind to build with. Grab him at wadevinith6@gmail.com before someone else does."
+
+  if (has(q, 'reach', 'contact', 'email', 'available', 'get in touch', 'collab', 'connect'))
+    return "Easy — email him at wadevinith6@gmail.com 📬. He's open to a few careful collaborations, and you'll also find him on GitHub (github.com/vinithwade), LinkedIn (linkedin.com/in/vinithwade), and X (@Vinith_04)."
 
   if (has(q, 'project', 'built', 'build', 'portfolio', 'made', 'work on', 'products'))
     return "Vinith has built MindFlow (a voice companion), Stuff (a guided idea-to-product builder), a Personal Driver Booking app, CTRL (turn ideas into real things across screens — ctrl-mvp.vercel.app), and Lexora (a twice-daily accountability companion). Ask about any one of them!"
@@ -142,5 +148,5 @@ export function offlineAnswer(question: string): string {
   if (has(q, 'who', 'about', 'yourself', 'tell me', 'introduce'))
     return "Vinith Wade is a software developer and designer from Hyderabad who works across full-stack engineering, UI/UX, and AI products. He started coding at sixteen and builds things that are useful and kind — “I trace sparks into constellations.”"
 
-  return "I can tell you about Vinith's projects, skills, experience, achievements, or how to reach him — what would you like to know? (Or email him directly at wadevinith6@gmail.com.)"
+  return "Happy to help! 😊 I can tell you about Vinith's projects, skills, experience, achievements, or how to reach him — what would you like to know? (Or email him directly at wadevinith6@gmail.com.)"
 }
