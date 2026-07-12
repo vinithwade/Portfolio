@@ -1,20 +1,20 @@
 /**
- * Vercel serverless function — the portfolio chatbot's "brain".
+ * Vercel serverless function — the portfolio chatbot's "brain" (OpenAI / ChatGPT).
  *
- * Runs ONLY on the server, so the Anthropic API key is never exposed to the
- * browser. Set ANTHROPIC_API_KEY in your Vercel project (Settings → Environment
+ * Runs ONLY on the server, so the OpenAI API key is never exposed to the
+ * browser. Set OPENAI_API_KEY in your Vercel project (Settings → Environment
  * Variables). Optionally set CHAT_MODEL to override the default model.
  *
  * If no key is configured it returns 501, and the frontend automatically falls
  * back to the free offline responder in src/lib/bot.ts — so the site keeps
  * working with zero setup and zero cost until you decide to turn on real AI.
  */
-import Anthropic from '@anthropic-ai/sdk'
+import OpenAI from 'openai'
 import { BOT_SYSTEM_PROMPT } from '../src/lib/bot'
 
-// Default to Claude Haiku — fast and inexpensive, ideal for a portfolio Q&A bot.
-// Override with CHAT_MODEL=claude-opus-4-8 (or another model) if you want.
-const MODEL = process.env.CHAT_MODEL || 'claude-haiku-4-5'
+// Default to gpt-4o-mini — fast and inexpensive, ideal for a portfolio Q&A bot.
+// Override with CHAT_MODEL=gpt-4o (or another model) if you want.
+const MODEL = process.env.CHAT_MODEL || 'gpt-4o-mini'
 
 type ChatMessage = { role: 'user' | 'assistant'; content: string }
 
@@ -35,7 +35,7 @@ export default async function handler(req: Req, res: Res) {
     return
   }
 
-  const apiKey = process.env.ANTHROPIC_API_KEY
+  const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey) {
     // No key configured — tell the client to use its offline fallback.
     res.status(501).json({ error: 'no_key' })
@@ -69,19 +69,14 @@ export default async function handler(req: Req, res: Res) {
   }
 
   try {
-    const client = new Anthropic({ apiKey })
-    const response = await client.messages.create({
+    const client = new OpenAI({ apiKey })
+    const completion = await client.chat.completions.create({
       model: MODEL,
       max_tokens: 1024,
-      system: BOT_SYSTEM_PROMPT,
-      messages,
+      messages: [{ role: 'system', content: BOT_SYSTEM_PROMPT }, ...messages],
     })
 
-    const reply = response.content
-      .filter((b): b is Anthropic.TextBlock => b.type === 'text')
-      .map((b) => b.text)
-      .join('')
-      .trim()
+    const reply = (completion.choices[0]?.message?.content || '').trim()
 
     res.status(200).json({ reply: reply || "Sorry — I didn't catch that. Try asking about Vinith's projects or skills." })
   } catch (err) {
