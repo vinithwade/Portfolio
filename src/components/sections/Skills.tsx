@@ -26,13 +26,13 @@ export function Skills() {
             viewport={{ once: true, margin: '-40px' }}
             transition={reduceMotion ? reducedTransition : { duration: 0.4, delay: i * 0.04, ease: 'easeOut' }}
           >
-            <div className="font-mono text-xs tracking-[0.2em] text-white/50">{g.label}</div>
+            <div className="font-mono text-xs tracking-[0.2em] text-black/50">{g.label}</div>
             <div className="mt-1.5 sm:mt-2 text-[15.5px] sm:text-[17px] leading-tight tracking-[-0.005em]">{g.items}</div>
           </motion.div>
         ))}
       </div>
 
-      <p className="mt-6 sm:mt-7 text-xs font-mono tracking-[0.08em] text-white/50">A handful of quiet companions.</p>
+      <p className="mt-6 sm:mt-7 text-xs font-mono tracking-[0.08em] text-black/50">A handful of quiet companions.</p>
     </section>
   )
 }

@@ -12,6 +12,7 @@ import { WhatIDo } from './components/sections/WhatIDo'
 
 import { NoiseMesh } from './components/effects/NoiseMesh'
 import { SmoothScroll } from './components/effects/SmoothScroll'
+import { ChatWidget } from './components/chat/ChatWidget'
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
         </div>
       </main>
       <Footer />
+
+      {/* Floating "ask about me" chatbot */}
+      <ChatWidget />
     </>
   )
 }

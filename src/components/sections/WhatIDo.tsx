@@ -24,7 +24,7 @@ export function WhatIDo() {
             viewport={{ once: true, margin: '-60px' }}
             transition={reduceMotion ? reducedTransition : { duration: 0.45, delay: idx * 0.06, ease: 'easeOut' }}
           >
-            <div className="font-mono text-[12px] sm:text-[13px] text-white/50 w-6 pt-0.5 sm:pt-1 tracking-[2px] shrink-0">{item.num}</div>
+            <div className="font-mono text-[12px] sm:text-[13px] text-black/50 w-6 pt-0.5 sm:pt-1 tracking-[2px] shrink-0">{item.num}</div>
             <div>
               <div className="font-serif text-[19px] sm:text-[21px] tracking-[-0.01em]">{item.title}</div>
               <p className="prose mt-1.5 sm:mt-2 text-[14.5px] sm:text-[15px]">{item.text}</p>

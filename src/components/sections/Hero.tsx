@@ -18,7 +18,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          className="mt-4 text-[15.5px] max-w-[34ch] text-white/90 leading-tight tracking-[-0.01em]"
+          className="mt-4 text-[15.5px] max-w-[34ch] text-black/90 leading-tight tracking-[-0.01em]"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={reduceMotion ? reducedTransition : { duration: 0.65, delay: 0.1, ease: [0.21, 0.92, 0.26, 1] }}
@@ -44,7 +44,7 @@ export function Hero() {
           transition={reduceMotion ? reducedTransition : { duration: 0.6, delay: 0.22, ease: [0.21, 0.92, 0.26, 1] }}
         >
           <a href="#projects" className="link">marks</a>
-          <span className="text-white/25">·</span>
+          <span className="text-black/25">·</span>
           <a href="#contact" className="link">say hello</a>
         </motion.div>
       </div>

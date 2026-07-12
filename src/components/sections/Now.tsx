@@ -11,7 +11,7 @@ export function Now() {
         <p className="pt-2 sm:pt-3">Always open to a few careful collaborations.</p>
       </div>
 
-      <div className="mt-5 sm:mt-6 text-xs font-mono tracking-[0.1em] text-white/50">Hyderabad skies · 2026</div>
+      <div className="mt-5 sm:mt-6 text-xs font-mono tracking-[0.1em] text-black/50">Hyderabad skies · 2026</div>
     </section>
   )
 }

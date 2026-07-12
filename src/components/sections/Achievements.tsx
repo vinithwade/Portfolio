@@ -14,7 +14,7 @@ export function Achievements() {
         {achievements.map((a, i) => (
           <motion.li 
             key={i} 
-            className="achieve-item pl-4 sm:pl-5 border-l border-white/20"
+            className="achieve-item pl-4 sm:pl-5 border-l border-black/20"
             initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}

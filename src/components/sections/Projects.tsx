@@ -42,12 +42,12 @@ export function Projects() {
             <h3 className="mt-2 font-serif text-[21px] leading-none tracking-[-0.01em] pr-8">
               {p.title}
             </h3>
-            <div className="mt-1 text-[14.5px] text-white/75">{p.subtitle}</div>
+            <div className="mt-1 text-[14.5px] text-black/75">{p.subtitle}</div>
 
             <p className="prose mt-3 text-[15px]">{p.description}</p>
 
             {p.highlight && (
-              <p className="mt-2.5 text-[13.5px] italic text-white/60">{p.highlight}</p>
+              <p className="mt-2.5 text-[13.5px] italic text-black/60">{p.highlight}</p>
             )}
 
             <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
@@ -63,7 +63,7 @@ export function Projects() {
               <button
                 type="button"
                 onClick={() => open(i)}
-                className="font-mono text-[10px] tracking-[0.14em] text-white/55 hover:text-white underline decoration-white/25 underline-offset-[3px] transition-colors"
+                className="font-mono text-[10px] tracking-[0.14em] text-black/55 hover:text-black underline decoration-black/25 underline-offset-[3px] transition-colors"
               >
                 TRACE THE LINES
               </button>
@@ -114,16 +114,16 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
         <h3 className="mt-1 font-serif text-[22px] leading-none tracking-[-0.015em] pr-10">
           {project.title}
         </h3>
-        <div className="mt-0.5 text-[14.5px] text-white/70">{project.subtitle}</div>
+        <div className="mt-0.5 text-[14.5px] text-black/70">{project.subtitle}</div>
 
         <p className="prose mt-5 text-[15px]">{project.description}</p>
 
         {project.highlight && (
-          <p className="mt-3.5 text-[13.5px] italic text-white/65">{project.highlight}</p>
+          <p className="mt-3.5 text-[13.5px] italic text-black/65">{project.highlight}</p>
         )}
 
         {(project.role || project.problem || (project.process && project.process.length)) && (
-          <div className="mt-6 pt-5 border-t border-white/10 space-y-4">
+          <div className="mt-6 pt-5 border-t border-black/10 space-y-4">
             {project.role && (
               <div className="constellation-detail">
                 <h4>My part</h4>
