@@ -2,7 +2,6 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { reducedTransition } from '../../lib/motion'
 import { skillGroups } from '../../data/content'
 
-
 export function Skills() {
   const reduceMotion = useReducedMotion()
 
@@ -10,24 +9,32 @@ export function Skills() {
     <section id="skills" className="section">
       <div className="meta mb-3">SKILLS</div>
       <h2 className="heading">Technical skills.</h2>
+      <p className="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-black/60">
+        The languages, systems, and tools behind my projects.
+      </p>
 
-      <div className="mt-7 sm:mt-8 max-w-[62ch] space-y-6 sm:space-y-7">
-        {skillGroups.map((g, i) => (
-          <motion.div 
-            key={i} 
-            className="skills-group"
+      <ul className="skills-grid mt-7 sm:mt-8">
+        {skillGroups.map((group, index) => (
+          <motion.li
+            key={group.label}
+            className="skills-card"
             initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={reduceMotion ? reducedTransition : { duration: 0.4, delay: i * 0.04, ease: 'easeOut' }}
+            transition={reduceMotion ? reducedTransition : { duration: 0.4, delay: index * 0.04, ease: 'easeOut' }}
           >
-            <div className="font-mono text-xs tracking-[0.2em] text-black/50">{g.label}</div>
-            <div className="mt-1.5 sm:mt-2 text-[15.5px] sm:text-[17px] leading-tight tracking-[-0.005em]">{g.items.join(' · ')}</div>
-          </motion.div>
+            <div className="skills-card-heading">
+              <h3>{group.label}</h3>
+              <span className="skills-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            </div>
+            <ul className="skills-tags" aria-label={`${group.label} skills`}>
+              {group.items.map((skill) => <li key={skill} className="skills-tag">{skill}</li>)}
+            </ul>
+          </motion.li>
         ))}
-      </div>
+      </ul>
 
-      <p className="mt-6 sm:mt-7 text-xs font-mono tracking-[0.08em] text-black/50">The tools behind the work.</p>
+      <a href="#projects" className="link touch-target inline-flex mt-6 text-sm">See these skills in my projects →</a>
     </section>
   )
 }

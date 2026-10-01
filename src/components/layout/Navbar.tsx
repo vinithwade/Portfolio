@@ -9,6 +9,7 @@ export function Navbar() {
   const [active, setActive] = useState('hero')
   const menuRef = useRef<HTMLDivElement>(null)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const menuTargetRef = useRef<string | null>(null)
 
   // Scrollspy
   useEffect(() => {
@@ -83,6 +84,25 @@ export function Navbar() {
   const nameTransition = reduceMotion 
     ? { duration: 0.15 } 
     : transition(reduceMotion ?? false, showName ? springs.gentle : { duration: 0.18, ease: 'easeOut' })
+
+  const scrollToMenuTarget = () => {
+    const href = menuTargetRef.current
+    menuTargetRef.current = null
+    if (!href) return
+    const section = document.getElementById(href.slice(1))
+    if (!section) return
+
+    // Run after the menu has exited and its body scroll lock is released.
+    // The section's scroll-margin already accounts for the fixed phone header.
+    const lenis = window.__lenis
+    if (lenis) {
+      lenis.resize()
+      lenis.scrollTo(section, { duration: 0.8, immediate: !!reduceMotion })
+    } else {
+      section.scrollIntoView({ behavior: 'instant', block: 'start' })
+    }
+    if (window.location.hash !== href) window.history.pushState(null, '', href)
+  }
 
   return (
     <>
@@ -178,7 +198,7 @@ export function Navbar() {
       <div className="mobile-header-spacer lg:hidden" />
 
       {/* Mobile menu — strengthened: animated overlay, large touch targets, socials, active state, elegant motion */}
-      <AnimatePresence>
+      <AnimatePresence onExitComplete={scrollToMenuTarget}>
         {open && (
           <motion.div
             ref={menuRef}
@@ -226,7 +246,11 @@ export function Navbar() {
                     <a
                       key={link.href}
                       href={link.href}
-                      onClick={() => setOpen(false)}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        menuTargetRef.current = link.href
+                        setOpen(false)
+                      }}
                       aria-current={isActive ? 'page' : undefined}
                       className={`touch-target flex items-center text-[20px] tracking-[-0.008em] border-b border-black/10 last:border-b-0 transition-all active:bg-black/5 ${
                         isActive 
