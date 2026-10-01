@@ -8,20 +8,20 @@ declare global {
 }
 
 /**
- * Smooth scroll engine + full-page section snapping.
+ * Smooth anchors with section snapping for desktop pointer devices.
  *
- * Behaviour: one wheel notch / one swipe / one arrow-key press advances exactly
- * ONE snap point and glides there smoothly. The user never has to scroll
- * continuously — a single gesture moves to the next section and stops.
+ * Phone, tablet, and reduced-motion browsing use native scrolling. Desktop
+ * wheel and keyboard input advance one snap point at a time.
  *
- * Sections taller than the viewport get an extra "bottom-aligned" snap point so
- * their overflowing content is still reachable before moving on.
+ * Long desktop sections get intermediate stops so all content remains reachable.
  */
 export function SmoothScroll() {
   useEffect(() => {
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const desktop = window.matchMedia('(min-width: 1024px) and (pointer: fine)')
+    const shouldSnap = () => desktop.matches && !prefersReduced
 
     const EASE = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
 
@@ -49,7 +49,7 @@ export function SmoothScroll() {
 
     // Let scrollable overlays (e.g. the project modal, chat panel) scroll natively.
     const inScrollable = (t: EventTarget | null) =>
-      !!(t as HTMLElement | null)?.closest?.('.constellation-modal, .chat-panel')
+      !!(t as HTMLElement | null)?.closest?.('.constellation-modal, .chat-panel, #mobile-menu, .desktop-sidebar')
 
     const maxScroll = () =>
       Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
@@ -66,8 +66,13 @@ export function SmoothScroll() {
       secs.forEach((s) => {
         const top = Math.round(s.getBoundingClientRect().top + window.scrollY)
         raw.push(top)
-        // Tall section — add a stop that shows its bottom before moving on.
-        if (s.offsetHeight > vh + 8) raw.push(Math.round(top + s.offsetHeight - vh))
+        // Keep every part of long project/experience sections reachable. A
+        // small overlap avoids skipping lines between successive viewports.
+        const bottom = top + s.offsetHeight - vh
+        for (let stop = top + vh * 0.8; stop < bottom; stop += vh * 0.8) {
+          raw.push(Math.round(stop))
+        }
+        if (bottom > top + 8) raw.push(Math.round(bottom))
       })
       raw.push(max) // ensure the very bottom (footer) is reachable
 
@@ -122,7 +127,8 @@ export function SmoothScroll() {
 
     // ---- Wheel ----
     const onWheel = (e: WheelEvent) => {
-      if (prefersReduced || inScrollable(e.target)) return
+      if (!shouldSnap() || inScrollable(e.target) || document.documentElement.classList.contains('menu-open')) return
+      if (e.ctrlKey) return // preserve browser zoom gestures
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return // ignore horizontal
       e.preventDefault()
       go(e.deltaY > 0 ? 1 : -1)
@@ -132,7 +138,7 @@ export function SmoothScroll() {
     let touchStartY = 0
     let touchTracking = false
     const onTouchStart = (e: TouchEvent) => {
-      if (inScrollable(e.target)) {
+      if (!shouldSnap() || inScrollable(e.target)) {
         touchTracking = false
         return
       }
@@ -140,11 +146,11 @@ export function SmoothScroll() {
       touchTracking = true
     }
     const onTouchMove = (e: TouchEvent) => {
-      if (!touchTracking || prefersReduced) return
+      if (!touchTracking || !shouldSnap()) return
       e.preventDefault() // suppress native scroll; we snap on release
     }
     const onTouchEnd = (e: TouchEvent) => {
-      if (!touchTracking || prefersReduced) return
+      if (!touchTracking || !shouldSnap()) return
       touchTracking = false
       const endY = e.changedTouches[0]?.clientY ?? touchStartY
       const dy = touchStartY - endY
@@ -154,8 +160,11 @@ export function SmoothScroll() {
 
     // ---- Keyboard ----
     const onKey = (e: KeyboardEvent) => {
+      if (!shouldSnap()) return
       const tag = (e.target as HTMLElement | null)?.tagName
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || inScrollable(e.target)) return
+      if ((e.target as HTMLElement | null)?.isContentEditable) return
+      if (e.key === ' ' && (e.target as HTMLElement | null)?.closest('button, a')) return
       if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
         e.preventDefault()
         go(1)
@@ -188,7 +197,9 @@ export function SmoothScroll() {
       const el = document.querySelector(id) as HTMLElement | null
       if (!el) return
       e.preventDefault()
-      lenis.scrollTo(el, { offset: -20, duration: SNAP_DURATION, easing: EASE })
+      const header = document.querySelector('.mobile-header') as HTMLElement | null
+      const headerHeight = header && window.getComputedStyle(header).display !== 'none' ? header.offsetHeight : 0
+      lenis.scrollTo(el, { offset: -headerHeight, duration: SNAP_DURATION, easing: EASE })
     }
     document.addEventListener('click', onClick)
 

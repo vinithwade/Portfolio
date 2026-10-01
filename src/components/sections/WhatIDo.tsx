@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { reducedTransition } from '../../lib/motion'
+import { services } from '../../data/content'
 
 export function WhatIDo() {
   const reduceMotion = useReducedMotion()
@@ -10,12 +11,7 @@ export function WhatIDo() {
       <h2 className="heading max-w-[18ch]">Four quiet ways I try to leave the work better than I found it.</h2>
 
       <div className="mt-7 sm:mt-8 space-y-6 sm:space-y-7">
-        {[
-          { num: '01', title: 'Weaving the whole thing', text: 'I begin with how it feels in someone\'s hands. The warmth of a button that knows what comes next. The calm of something that never gets in the way.' },
-          { num: '02', title: 'Catching the right spark', text: 'The moment an idea clicks into something that surprises. I chase that with careful companions that listen and remember the shape of things.' },
-          { num: '03', title: 'Moments that invite you in', text: 'Design is not pixels. It is the tiny relief when something just works. The delight of a flow that feels generous.' },
-          { num: '04', title: 'Foundations you trust', text: 'The quiet parts that hold everything up. When the ground feels solid under your feet, the surface can hold wonder.' },
-        ].map((item, idx) => (
+        {services.map((item, idx) => (
           <motion.div 
             key={item.num} 
             className="flex flex-col sm:flex-row gap-3 sm:gap-6"

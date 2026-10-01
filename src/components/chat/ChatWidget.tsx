@@ -12,7 +12,9 @@ function scrollToSection(id: string) {
   const el = document.getElementById(id)
   if (!el) return
   const lenis = window.__lenis
-  if (lenis) lenis.scrollTo(el, { duration: 1.1, easing: easeOut })
+  const header = document.querySelector('.mobile-header') as HTMLElement | null
+  const headerHeight = header && window.getComputedStyle(header).display !== 'none' ? header.offsetHeight : 0
+  if (lenis) lenis.scrollTo(el, { offset: -headerHeight, duration: 1.1, easing: easeOut })
   else el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
@@ -56,11 +58,6 @@ export function ChatWidget() {
     )
     return () => timers.forEach((t) => clearTimeout(t))
   }, [reduceMotion, controls])
-
-  // Opening the chat dismisses the intro tooltip.
-  useEffect(() => {
-    if (open) setHint(false)
-  }, [open])
 
   // Keep the transcript scrolled to the newest message.
   useEffect(() => {
@@ -136,9 +133,9 @@ export function ChatWidget() {
       {/* Floating launcher button (bottom-right) */}
       <motion.button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => { setHint(false); setOpen((v) => !v) }}
         aria-label={open ? 'Close chat' : 'Ask about Vinith'}
-        className="fixed right-5 top-20 lg:right-6 lg:top-6 z-[80] flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-[0_6px_24px_rgba(0,0,0,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+        className="chat-launcher fixed right-4 bottom-5 lg:bottom-auto lg:right-6 lg:top-6 z-[80] flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-[0_6px_24px_rgba(0,0,0,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
         animate={controls}
         whileHover={reduceMotion ? {} : { scale: 1.05 }}
         whileTap={reduceMotion ? {} : { scale: 0.94 }}
@@ -182,7 +179,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.94 }}
             transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed right-[5.5rem] top-20 lg:right-[5.75rem] lg:top-6 z-[80] max-w-[15.5rem] cursor-pointer rounded-2xl border border-black/12 bg-white px-4 py-3 shadow-[0_12px_38px_rgba(0,0,0,0.18)]"
+            className="chat-hint fixed right-4 bottom-[5.75rem] lg:bottom-auto lg:right-[5.75rem] lg:top-6 z-[80] max-w-[15.5rem] cursor-pointer rounded-2xl border border-black/12 bg-white px-4 py-3 shadow-[0_12px_38px_rgba(0,0,0,0.18)]"
           >
             <button
               type="button"
@@ -198,7 +195,7 @@ export function ChatWidget() {
             <div className="text-[13px] font-semibold leading-snug">Hi, I'm Vinith's personal AI agent 👋</div>
             <div className="mt-1 text-[12.5px] leading-snug text-black/60">Click me — I'll tell you all about Vinith.</div>
             {/* tail pointing toward the button */}
-            <div className="absolute right-[-5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rotate-45 border-r border-t border-black/12 bg-white" />
+            <div className="hidden lg:block absolute right-[-5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rotate-45 border-r border-t border-black/12 bg-white" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -210,7 +207,7 @@ export function ChatWidget() {
             key="panel"
             role="dialog"
             aria-label="Chat with Vinith's assistant"
-            className="chat-panel fixed top-0 right-0 z-[80] h-full w-full sm:w-[400px] flex flex-col bg-white border-l border-black/10 shadow-[-16px_0_50px_rgba(0,0,0,0.10)]"
+            className="chat-panel fixed top-0 right-0 z-[80] h-dvh w-full sm:w-[400px] flex flex-col bg-white border-l border-black/10 shadow-[-16px_0_50px_rgba(0,0,0,0.10)]"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
             initial={reduceMotion ? { opacity: 0 } : { x: '100%' }}
             animate={reduceMotion ? { opacity: 1 } : { x: 0 }}
@@ -235,7 +232,7 @@ export function ChatWidget() {
             </div>
 
             {/* Messages */}
-            <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-5 py-5">
+            <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto overscroll-contain px-5 py-5">
               {messages.length === 0 && (
                 <div className="space-y-3">
                   <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-black/[0.06] px-3.5 py-2.5 text-[14px] leading-relaxed">
@@ -261,8 +258,8 @@ export function ChatWidget() {
                   <div
                     className={
                       m.role === 'user'
-                        ? 'max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tr-sm bg-black px-3.5 py-2.5 text-[14px] leading-relaxed text-white'
-                        : 'max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-tl-sm bg-black/[0.06] px-3.5 py-2.5 text-[14px] leading-relaxed text-black'
+                        ? 'max-w-[85%] whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl rounded-tr-sm bg-black px-3.5 py-2.5 text-[14px] leading-relaxed text-white'
+                        : 'max-w-[85%] whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl rounded-tl-sm bg-black/[0.06] px-3.5 py-2.5 text-[14px] leading-relaxed text-black'
                     }
                   >
                     {m.content}
@@ -286,7 +283,7 @@ export function ChatWidget() {
             </div>
 
             {/* Input */}
-            <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-black/10 px-4 py-3">
+            <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-black/10 px-4 py-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
               <input
                 ref={inputRef}
                 value={input}

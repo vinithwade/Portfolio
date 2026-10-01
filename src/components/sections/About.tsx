@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { reducedTransition } from '../../lib/motion'
+import { about, education } from '../../data/content'
 
 export function About() {
   const reduceMotion = useReducedMotion()
@@ -16,15 +17,14 @@ export function About() {
           <div className="font-mono text-[10px] tracking-[0.2em] text-black/50 mb-3">THE BEGINNING</div>
 
           <div className="prose">
-            <p className="text-[16px] sm:text-[17px] leading-[1.65]">
-              It began with awkward lines at sixteen. One became two, then a small page that felt as though it belonged to someone.
-            </p>
-            <p>
-              Then came the strange, new feeling of shaping with something that seemed to grasp what I meant before the sentence was done.
-            </p>
-            <p>
-              I do not chase polish for its own sake. I make things that are useful and kind. Hyderabad is home. I read more than I should. I believe the best work feels as if it was always waiting to be found.
-            </p>
+            {about.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+          </div>
+
+          <div className="mt-7 pt-5 border-t border-black/10">
+            <div className="meta text-black/50 mb-2">EDUCATION · {education.period}</div>
+            <h2 className="font-serif text-[21px]">{education.institution}</h2>
+            <p className="text-[15px] text-black/70 mt-1">{education.degree}</p>
+            <p className="text-sm text-black/50 mt-1">{education.location}</p>
           </div>
 
           <a href="#contact" className="link inline-block mt-6 text-sm touch-target py-1">say hello</a>

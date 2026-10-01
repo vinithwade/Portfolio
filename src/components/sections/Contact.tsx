@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { reducedTransition } from '../../lib/motion'
 import { site } from '../../data/content'
+import { ResumeLink } from '../ui/ResumeLink'
 
 export function Contact() {
   const reduceMotion = useReducedMotion()
@@ -18,12 +19,14 @@ export function Contact() {
         <h2 className="display max-w-[18ch]">If this feels like your sky too.</h2>
 
         <p className="prose mt-5 max-w-[52ch]">
-          I read every message with care. If you are chasing something that feels true, or you just need a fellow traveler to talk through the beautiful mess — I am here.
+          Looking for a software developer who thinks about both the product and the systems behind it? I would love to hear about your team, your idea, or the problem you are working on.
         </p>
 
         <a href={`mailto:${site.email}`} className="contact-email mt-6 sm:mt-7 block hover:underline touch-target py-1">
           {site.email}
         </a>
+
+        <div className="mt-4 text-sm font-mono"><ResumeLink /></div>
 
         <div className="mt-4 sm:mt-5 flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono tracking-[0.04em]">
           <motion.a 

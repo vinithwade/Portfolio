@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { reducedTransition } from '../../lib/motion'
+import { experience } from '../../data/content'
 
 export function Experience() {
   const reduceMotion = useReducedMotion()
@@ -10,20 +11,7 @@ export function Experience() {
       <h2 className="heading">Where the work has taken me.</h2>
 
       <div className="mt-6 sm:mt-7 space-y-6 sm:space-y-7">
-        {[
-          {
-            period: 'Apr 2025 — Present',
-            role: 'Software Developer Intern',
-            place: 'Behooked.co',
-            text: 'Helped storytellers spend less time wrestling with the tools and more on the feeling of their work. Built pieces that turned spoken words into beautiful, timed captions across the ways people watch. It felt like giving creators back their hours.',
-          },
-          {
-            period: 'Jun — Jul 2025',
-            role: 'Full-Stack Developer Intern',
-            place: 'Digital Blinc',
-            text: 'Stepped into a fast-moving team and made the invisible parts feel steady. Tuned the quiet connections between people and their data so nothing stumbled.',
-          },
-        ].map((e, idx) => (
+        {experience.map((e, idx) => (
           <motion.div 
             key={idx} 
             className="exp-block"

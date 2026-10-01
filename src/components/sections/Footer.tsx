@@ -6,7 +6,7 @@ export function Footer() {
 
   const year = new Date().getFullYear()
   return (
-    <footer className="py-10 text-sm text-black/60 border-t border-black/10">
+    <footer className="py-10 lg:pl-[252px] text-sm text-black/60 border-t border-black/10">
       <div className="container-page flex flex-col sm:flex-row justify-between gap-y-3 sm:gap-y-2 pt-1">
         <div>© {year} Vinith Wade</div>
         <div className="flex gap-x-5">

@@ -71,8 +71,8 @@ export function NoiseMesh() {
 
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i]
-        let x = s.x * w
-        let y = s.y * h + parallax * (0.6 + (i % 3) * 0.2) // layered subtle drift
+        const x = s.x * w
+        const y = s.y * h + parallax * (0.6 + (i % 3) * 0.2) // layered subtle drift
 
         // Gentle twinkle (disabled under reduced motion)
         let alpha = 0.055

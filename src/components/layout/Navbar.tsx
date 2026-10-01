@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { site, navLinks as contentNavLinks } from '../../data/content'
 import { GithubIcon, InstagramIcon, LinkedinIcon, XIcon } from '../ui/BrandIcons'
@@ -7,6 +7,8 @@ import { springs, transition } from '../../lib/motion'
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState('hero')
+  const menuRef = useRef<HTMLDivElement>(null)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
 
   // Scrollspy
   useEffect(() => {
@@ -29,7 +31,40 @@ export function Navbar() {
   // Mobile menu lock
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    document.documentElement.classList.toggle('menu-open', open)
+    return () => {
+      document.body.style.overflow = ''
+      document.documentElement.classList.remove('menu-open')
+    }
+  }, [open])
+
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const onResize = () => { if (desktop.matches) setOpen(false) }
+    desktop.addEventListener('change', onResize)
+    return () => desktop.removeEventListener('change', onResize)
+  }, [])
+
+  useEffect(() => {
+    if (!open) return
+    const menu = menuRef.current
+    const trigger = menuButtonRef.current
+    menu?.querySelector<HTMLButtonElement>('button')?.focus()
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+      if (event.key !== 'Tab') return
+      const items = menu?.querySelectorAll<HTMLElement>('button, a[href]')
+      if (!items?.length) return
+      const first = items[0]
+      const last = items[items.length - 1]
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus() }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus() }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      if (window.innerWidth < 1024) trigger?.focus({ preventScroll: true })
+    }
   }, [open])
 
   // Show name in navbar after scrolling past first section (with refined spring animation)
@@ -53,9 +88,9 @@ export function Navbar() {
     <>
       {/* CREATIVE VERTICAL LEFT NAV — the "spine" of the portfolio */}
       {/* Different from standard top bar: a fixed elegant vertical column showcasing typography and the photo creatively */}
-      <aside className="hidden lg:flex fixed left-0 top-0 z-50 h-full w-[252px] flex-col bg-white border-r border-black/10">
+      <aside className="desktop-sidebar hidden lg:flex fixed left-0 top-0 z-50 h-full w-[252px] flex-col bg-white border-r border-black/10 overflow-y-auto">
         {/* Photo in navbar only: rectangle, taller, touches top + left + right edges */}
-        <div className="w-full h-[248px] overflow-hidden flex-shrink-0 relative">
+        <div className="sidebar-portrait w-full overflow-hidden flex-shrink-0 relative">
           <motion.img 
             src={site.photo} 
             alt="Vinith Wade" 
@@ -64,7 +99,7 @@ export function Navbar() {
             loading="eager"
             fetchPriority="high"
             decoding="sync"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
             whileHover={reduceMotion ? {} : { scale: 1.012 }}
             transition={{ duration: reduceMotion ? 0.1 : 0.6, ease: [0.23, 1, 0.32, 1] }}
           />
@@ -120,13 +155,15 @@ export function Navbar() {
         </div>
       </aside>
 
-      {/* Mobile: Minimal top bar (no photo) — strengthened: taller tap targets, better contrast */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-black/10" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
-        <div className="flex h-[60px] items-center justify-between px-5">
-          <a href="#hero" className="font-serif text-[19px] tracking-[-0.018em] active:opacity-70 transition">
-            Vinith Wade
+      {/* A persistent portrait on phone and tablet screens. */}
+      <div className="mobile-header lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-black/10" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <div className="flex h-16 items-center justify-between gap-3 px-4 sm:px-6">
+          <a href="#hero" className="flex min-w-0 items-center gap-3 font-serif text-[19px] tracking-[-0.018em] active:opacity-70 transition" onClick={() => setOpen(false)}>
+            <img src={site.photo} alt="" width={38} height={38} className="h-[38px] w-[38px] shrink-0 rounded-full object-cover object-top" />
+            <span>{site.name}</span>
           </a>
           <button 
+            ref={menuButtonRef}
             onClick={() => setOpen(!open)} 
             className="font-mono text-[11px] tracking-[0.24em] text-black/70 hover:text-black active:text-black py-2.5 px-4 -mr-1 rounded transition touch-target"
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -138,12 +175,13 @@ export function Navbar() {
         </div>
       </div>
 
-      <div className="h-[60px] lg:hidden" />
+      <div className="mobile-header-spacer lg:hidden" />
 
       {/* Mobile menu — strengthened: animated overlay, large touch targets, socials, active state, elegant motion */}
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={menuRef}
             key="mobile-menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -151,10 +189,11 @@ export function Navbar() {
             transition={{ duration: reduceMotion ? 0.01 : 0.18, ease: [0.22, 1, 0.36, 1] }}
             id="mobile-menu"
             className="lg:hidden fixed inset-0 z-[60] bg-white"
-            style={{ paddingTop: 'calc(60px + env(safe-area-inset-top))' }}
+            style={{ paddingTop: 'env(safe-area-inset-top)' }}
             onClick={() => setOpen(false)}
             role="dialog"
             aria-modal="true"
+            aria-label="Navigation menu"
           >
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -166,7 +205,10 @@ export function Navbar() {
             >
               {/* Menu header with name + close */}
               <div className="flex items-center justify-between mb-8">
-                <div className="font-serif text-[26px] tracking-[-0.02em]">Vinith Wade</div>
+                <div className="flex items-center gap-3">
+                  <img src={site.photo} alt="" width={48} height={48} className="h-12 w-12 rounded-full object-cover object-top" />
+                  <div className="font-serif text-[24px] tracking-[-0.02em]">{site.name}</div>
+                </div>
                 <button
                   onClick={() => setOpen(false)}
                   className="font-mono text-[11px] tracking-[0.26em] text-black/60 hover:text-black py-2 px-3 -mr-1 active:text-black transition touch-target"

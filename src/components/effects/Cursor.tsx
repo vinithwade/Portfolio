@@ -28,7 +28,6 @@ export function Cursor() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const mq = window.matchMedia('(hover: hover)')
-    setSupportsHover(mq.matches)
     const onChange = () => setSupportsHover(mq.matches)
     mq.addEventListener?.('change', onChange)
     return () => mq.removeEventListener?.('change', onChange)
