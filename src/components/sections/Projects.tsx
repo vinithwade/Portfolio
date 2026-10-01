@@ -11,8 +11,8 @@ export function Projects() {
 
   return (
     <section id="projects" className="section">
-      <div className="meta mb-2">CONSTELLATIONS</div>
-      <h2 className="heading mb-6">Marks I have left.</h2>
+      <div className="meta mb-2">PROJECTS</div>
+      <h2 className="heading mb-6">Selected projects.</h2>
       <div className="mt-1">
         {projects.map((project, i) => (
           <motion.div key={project.title} className="constellation-card group" {...fadeUp(i * 0.018, !!reduceMotion)} whileHover={reduceMotion ? {} : { y: -1.5 }}>
@@ -25,7 +25,7 @@ export function Projects() {
             <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
               <ProjectLinks project={project} />
               <button type="button" onClick={() => setSelected(project)} aria-label={`Explore ${project.title}`} className="touch-target font-mono text-[10px] tracking-[0.14em] text-black/55 hover:text-black underline decoration-black/25 underline-offset-[3px] transition-colors">
-                TRACE THE LINES
+                PROJECT DETAILS
               </button>
             </div>
           </motion.div>

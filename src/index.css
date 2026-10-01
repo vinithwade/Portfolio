@@ -165,9 +165,8 @@
     opacity: 0.92;
   }
 
-  /* Section snapping is handled in JS (SmoothScroll) so each gesture advances
-     exactly one section. CSS scroll-snap is intentionally not used here — it
-     conflicts with the Lenis-driven animated snapping. */
+  /* Desktop wheel smoothing is handled in SmoothScroll. Keep sections free
+     of scroll snapping so trackpad input can move continuously through them. */
 
   /* When the chat sidebar is open, shift the page content left on desktop so
      text isn't hidden behind the 400px panel. Below lg the sidebar overlays

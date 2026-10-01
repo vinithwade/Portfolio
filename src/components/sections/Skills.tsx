@@ -8,8 +8,8 @@ export function Skills() {
 
   return (
     <section id="skills" className="section">
-      <div className="meta mb-3">THE QUIET TOOLS</div>
-      <h2 className="heading">What I reach for.</h2>
+      <div className="meta mb-3">SKILLS</div>
+      <h2 className="heading">Technical skills.</h2>
 
       <div className="mt-7 sm:mt-8 max-w-[62ch] space-y-6 sm:space-y-7">
         {skillGroups.map((g, i) => (

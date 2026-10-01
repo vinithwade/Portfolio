@@ -7,8 +7,8 @@ export function WhatIDo() {
 
   return (
     <section id="work" className="section">
-      <div className="meta mb-3">WHAT I REACH FOR</div>
-      <h2 className="heading max-w-[18ch]">Four quiet ways I try to leave the work better than I found it.</h2>
+      <div className="meta mb-3">EXPERTISE</div>
+      <h2 className="heading max-w-[18ch]">How I apply my skills.</h2>
 
       <div className="mt-7 sm:mt-8 space-y-6 sm:space-y-7">
         {services.map((item, idx) => (

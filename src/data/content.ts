@@ -36,22 +36,22 @@ export const education = {
 }
 
 export const navLinks = [
-  { label: 'Begin', href: '#hero' },
-  { label: 'Journey', href: '#about' },
-  { label: 'Marks', href: '#work' },
-  { label: 'Chapters', href: '#experience' },
-  { label: 'Now', href: '#now' },
-  { label: 'Constellations', href: '#projects' },
+  { label: 'Overview', href: '#hero' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Sparks', href: '#achievements' },
-  { label: 'Connect', href: '#contact' },
+  { label: 'Expertise', href: '#work' },
+  { label: 'About & Education', href: '#about' },
+  { label: 'Achievements', href: '#achievements' },
+  { label: 'Current Focus', href: '#now' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 export const services = [
-  { num: '01', title: 'Foundations that hold', text: 'Backend services, REST APIs, and event-driven workflows. I work with Java, Spring Boot, Node.js, and Python to connect the pieces behind a product.' },
-  { num: '02', title: 'AI with a purpose', text: 'Voice, screen context, document ingestion, and retrieval. I build around a clear task, with provider boundaries, retries, and source-grounded answers.' },
-  { num: '03', title: 'Data that finds its way', text: 'PostgreSQL, vector search, stream processing, and caching. I care about how data moves, who can access it, and what happens when a step fails.' },
-  { num: '04', title: 'The whole thing, thoughtfully', text: 'React and Next.js interfaces, Electron desktop experiences, and tests for the systems behind them. The interface and the infrastructure should make sense together.' },
+  { num: '01', title: 'Backend engineering', text: 'Backend services, REST APIs, and event-driven workflows. I work with Java, Spring Boot, Node.js, and Python to connect the pieces behind a product.' },
+  { num: '02', title: 'AI integration & retrieval', text: 'Voice, screen context, document ingestion, and retrieval. I build around a clear task, with provider boundaries, retries, and source-grounded answers.' },
+  { num: '03', title: 'Data & distributed systems', text: 'PostgreSQL, vector search, stream processing, and caching. I care about how data moves, who can access it, and what happens when a step fails.' },
+  { num: '04', title: 'Full-stack & desktop development', text: 'React and Next.js interfaces, Electron desktop experiences, and tests for the systems behind them. The interface and the infrastructure should make sense together.' },
 ]
 
 export const experience = [

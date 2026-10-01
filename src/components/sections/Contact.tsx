@@ -14,9 +14,9 @@ export function Contact() {
         viewport={{ once: true, margin: '-60px' }}
         transition={reduceMotion ? reducedTransition : { duration: 0.55, ease: 'easeOut' }}
       >
-        <div className="meta mb-2">ONE LAST THING</div>
+        <div className="meta mb-2">CONTACT</div>
 
-        <h2 className="display max-w-[18ch]">If this feels like your sky too.</h2>
+        <h2 className="display max-w-[18ch]">Let’s work together.</h2>
 
         <p className="prose mt-5 max-w-[52ch]">
           Looking for a software developer who thinks about both the product and the systems behind it? I would love to hear about your team, your idea, or the problem you are working on.

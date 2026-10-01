@@ -14,7 +14,8 @@ export function About() {
           viewport={{ once: true, margin: '-80px' }}
           transition={reduceMotion ? reducedTransition : { duration: 0.5, ease: 'easeOut' }}
         >
-          <div className="font-mono text-[10px] tracking-[0.2em] text-black/50 mb-3">THE BEGINNING</div>
+          <div className="meta mb-3">ABOUT & EDUCATION</div>
+          <h2 className="heading mb-6">My background.</h2>
 
           <div className="prose">
             {about.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
@@ -22,7 +23,7 @@ export function About() {
 
           <div className="mt-7 pt-5 border-t border-black/10">
             <div className="meta text-black/50 mb-2">EDUCATION · {education.period}</div>
-            <h2 className="font-serif text-[21px]">{education.institution}</h2>
+            <h3 className="font-serif text-[21px]">{education.institution}</h3>
             <p className="text-[15px] text-black/70 mt-1">{education.degree}</p>
             <p className="text-sm text-black/50 mt-1">{education.location}</p>
           </div>

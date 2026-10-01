@@ -52,9 +52,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={reduceMotion ? reducedTransition : { duration: 0.6, delay: 0.22, ease: [0.21, 0.92, 0.26, 1] }}
         >
-          <a href="#projects" className="link touch-target">projects</a>
+          <a href="#projects" className="link touch-target">View projects</a>
           <span className="text-black/25">·</span>
-          <a href="#contact" className="link touch-target">say hello</a>
+          <a href="#contact" className="link touch-target">Contact</a>
           <ResumeLink />
         </motion.div>
       </div>

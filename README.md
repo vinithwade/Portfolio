@@ -23,6 +23,11 @@ Edit `src/data/content.ts` for the profile, introduction, education, experience,
 services, skills, projects, achievements, and current focus. The page and chatbot
 both read from this shared source. UI and motion remain in `src/components`.
 
+The page and both navigation menus follow the same order: Overview, Projects,
+Experience, Skills, Expertise, About & Education, Achievements, Current Focus,
+and Contact. Projects and experience appear first to show evidence of the work
+before the supporting background.
+
 The original resume is served from `public/VinithWade_SDE1.pdf`. Replace that file
 to refresh the download, or update `site.resume` and `site.resumeFilename`.
 Download links appear in the introduction, Contact, and resume-only project details.

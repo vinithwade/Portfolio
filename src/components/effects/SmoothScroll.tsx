@@ -8,12 +8,9 @@ declare global {
 }
 
 /**
- * Smooth anchors with section snapping for desktop pointer devices.
- *
- * Phone, tablet, and reduced-motion browsing use native scrolling. Desktop
- * wheel and keyboard input advance one snap point at a time.
- *
- * Long desktop sections get intermediate stops so all content remains reachable.
+ * Continuous wheel/trackpad smoothing in the desktop layout only.
+ * Phone, tablet, and reduced-motion browsing keep native scrolling.
+ * Anchor links retain their fixed-header offset on every screen size.
  */
 export function SmoothScroll() {
   useEffect(() => {
@@ -21,15 +18,20 @@ export function SmoothScroll() {
       typeof window !== 'undefined' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const desktop = window.matchMedia('(min-width: 1024px) and (pointer: fine)')
-    const shouldSnap = () => desktop.matches && !prefersReduced
+    const shouldSmooth = () => desktop.matches && !prefersReduced
 
     const EASE = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
 
     const lenis = new Lenis({
-      duration: prefersReduced ? 0.1 : 1.15,
+      duration: prefersReduced ? 0.1 : shouldSmooth() ? 0.7 : 1.15,
       easing: EASE,
-      // We drive the wheel ourselves so each gesture snaps one section.
-      smoothWheel: false,
+      smoothWheel: shouldSmooth(),
+      syncTouch: false,
+      // Sidebar, menu, and dialog scrolling stays inside its own container.
+      prevent: (node) => shouldSmooth() && (
+        document.documentElement.classList.contains('menu-open') ||
+        node.matches('.constellation-modal, .chat-panel, #mobile-menu, .desktop-sidebar')
+      ),
       wheelMultiplier: 1,
       touchMultiplier: 1,
     })
@@ -42,149 +44,16 @@ export function SmoothScroll() {
     }
     raf = requestAnimationFrame(tick)
 
-    // ---------------- Section snapping ----------------
-    const SNAP_DURATION = prefersReduced ? 0.2 : 1.0
-    let isSnapping = false
-    let lastSnap = 0
+    const ANCHOR_DURATION = prefersReduced ? 0.2 : 1.0
 
-    // Let scrollable overlays (e.g. the project modal, chat panel) scroll natively.
-    const inScrollable = (t: EventTarget | null) =>
-      !!(t as HTMLElement | null)?.closest?.('.constellation-modal, .chat-panel, #mobile-menu, .desktop-sidebar')
-
-    const maxScroll = () =>
-      Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
-
-    // Build the ordered list of scroll positions we allow the page to rest at.
-    const snapPoints = (): number[] => {
-      const vh = window.innerHeight
-      const max = maxScroll()
-      const secs = Array.from(
-        document.querySelectorAll('section.section'),
-      ) as HTMLElement[]
-
-      const raw: number[] = [0]
-      secs.forEach((s) => {
-        const top = Math.round(s.getBoundingClientRect().top + window.scrollY)
-        raw.push(top)
-        // Keep every part of long project/experience sections reachable. A
-        // small overlap avoids skipping lines between successive viewports.
-        const bottom = top + s.offsetHeight - vh
-        for (let stop = top + vh * 0.8; stop < bottom; stop += vh * 0.8) {
-          raw.push(Math.round(stop))
-        }
-        if (bottom > top + 8) raw.push(Math.round(bottom))
-      })
-      raw.push(max) // ensure the very bottom (footer) is reachable
-
-      const cleaned = raw
-        .map((p) => Math.max(0, Math.min(max, p)))
-        .sort((a, b) => a - b)
-
-      const out: number[] = []
-      cleaned.forEach((p) => {
-        if (!out.length || p - out[out.length - 1] > 8) out.push(p)
-      })
-      return out
+    // A resized desktop preview must return to native scrolling below lg.
+    const onLayoutChange = () => {
+      lenis.scrollTo(lenis.actualScroll, { immediate: true })
+      lenis.options.smoothWheel = shouldSmooth()
+      lenis.options.duration = prefersReduced ? 0.1 : shouldSmooth() ? 0.7 : 1.15
+      lenis.resize()
     }
-
-    const nearestIndex = (pts: number[], y: number) => {
-      let idx = 0
-      let best = Infinity
-      pts.forEach((p, i) => {
-        const d = Math.abs(p - y)
-        if (d < best) {
-          best = d
-          idx = i
-        }
-      })
-      return idx
-    }
-
-    const go = (dir: number) => {
-      const now = performance.now()
-      // Ignore rapid repeat events during / just after an animation.
-      if (isSnapping || now - lastSnap < 120) return
-
-      const pts = snapPoints()
-      const y = window.scrollY
-      const idx = nearestIndex(pts, y)
-      const targetIdx = Math.max(0, Math.min(pts.length - 1, idx + dir))
-      const target = pts[targetIdx]
-      if (Math.abs(target - y) < 4) return
-
-      isSnapping = true
-      lastSnap = now
-      lenis.scrollTo(target, {
-        duration: SNAP_DURATION,
-        easing: EASE,
-        lock: true,
-        onComplete: () => {
-          isSnapping = false
-          lastSnap = performance.now()
-        },
-      })
-    }
-
-    // ---- Wheel ----
-    const onWheel = (e: WheelEvent) => {
-      if (!shouldSnap() || inScrollable(e.target) || document.documentElement.classList.contains('menu-open')) return
-      if (e.ctrlKey) return // preserve browser zoom gestures
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return // ignore horizontal
-      e.preventDefault()
-      go(e.deltaY > 0 ? 1 : -1)
-    }
-
-    // ---- Touch (swipe) ----
-    let touchStartY = 0
-    let touchTracking = false
-    const onTouchStart = (e: TouchEvent) => {
-      if (!shouldSnap() || inScrollable(e.target)) {
-        touchTracking = false
-        return
-      }
-      touchStartY = e.touches[0]?.clientY ?? 0
-      touchTracking = true
-    }
-    const onTouchMove = (e: TouchEvent) => {
-      if (!touchTracking || !shouldSnap()) return
-      e.preventDefault() // suppress native scroll; we snap on release
-    }
-    const onTouchEnd = (e: TouchEvent) => {
-      if (!touchTracking || !shouldSnap()) return
-      touchTracking = false
-      const endY = e.changedTouches[0]?.clientY ?? touchStartY
-      const dy = touchStartY - endY
-      if (Math.abs(dy) < 40) return // ignore tiny taps
-      go(dy > 0 ? 1 : -1)
-    }
-
-    // ---- Keyboard ----
-    const onKey = (e: KeyboardEvent) => {
-      if (!shouldSnap()) return
-      const tag = (e.target as HTMLElement | null)?.tagName
-      if (tag === 'INPUT' || tag === 'TEXTAREA' || inScrollable(e.target)) return
-      if ((e.target as HTMLElement | null)?.isContentEditable) return
-      if (e.key === ' ' && (e.target as HTMLElement | null)?.closest('button, a')) return
-      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
-        e.preventDefault()
-        go(1)
-      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-        e.preventDefault()
-        go(-1)
-      } else if (e.key === 'Home') {
-        e.preventDefault()
-        lenis.scrollTo(0, { duration: SNAP_DURATION, easing: EASE })
-      } else if (e.key === 'End') {
-        e.preventDefault()
-        lenis.scrollTo(maxScroll(), { duration: SNAP_DURATION, easing: EASE })
-      }
-    }
-
-    window.addEventListener('wheel', onWheel, { passive: false })
-    window.addEventListener('touchstart', onTouchStart, { passive: true })
-    window.addEventListener('touchmove', onTouchMove, { passive: false })
-    window.addEventListener('touchend', onTouchEnd, { passive: true })
-    window.addEventListener('keydown', onKey)
+    desktop.addEventListener('change', onLayoutChange)
 
     // Anchor link smooth-scroll bridge
     const onClick = (e: MouseEvent) => {
@@ -199,17 +68,13 @@ export function SmoothScroll() {
       e.preventDefault()
       const header = document.querySelector('.mobile-header') as HTMLElement | null
       const headerHeight = header && window.getComputedStyle(header).display !== 'none' ? header.offsetHeight : 0
-      lenis.scrollTo(el, { offset: -headerHeight, duration: SNAP_DURATION, easing: EASE })
+      lenis.scrollTo(el, { offset: -headerHeight, duration: ANCHOR_DURATION, easing: EASE })
     }
     document.addEventListener('click', onClick)
 
     return () => {
       document.removeEventListener('click', onClick)
-      window.removeEventListener('wheel', onWheel)
-      window.removeEventListener('touchstart', onTouchStart)
-      window.removeEventListener('touchmove', onTouchMove)
-      window.removeEventListener('touchend', onTouchEnd)
-      window.removeEventListener('keydown', onKey)
+      desktop.removeEventListener('change', onLayoutChange)
       cancelAnimationFrame(raf)
       lenis.destroy()
       window.__lenis = undefined

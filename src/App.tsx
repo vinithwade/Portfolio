@@ -28,13 +28,13 @@ function App() {
       <main className="lg:pl-[252px]">
         <div className="container-page">
           <Hero />
-          <About />
-          <WhatIDo />
-          <Experience />
-          <Now />
           <Projects />
+          <Experience />
           <Skills />
+          <WhatIDo />
+          <About />
           <Achievements />
+          <Now />
           <Contact />
         </div>
       </main>

@@ -7,8 +7,8 @@ export function Achievements() {
 
   return (
     <section id="achievements" className="section">
-      <div className="meta mb-3">LITTLE SPARKS</div>
-      <h2 className="heading">Moments that stayed.</h2>
+      <div className="meta mb-3">ACHIEVEMENTS</div>
+      <h2 className="heading">Research & achievements.</h2>
 
       <ul className="mt-6 sm:mt-7 mb-2 space-y-4 sm:space-y-5 text-[14.8px] sm:text-[15.5px] leading-[1.7] max-w-[64ch]">
         {achievements.map((a, i) => (

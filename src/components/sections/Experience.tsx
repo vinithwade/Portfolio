@@ -7,8 +7,8 @@ export function Experience() {
 
   return (
     <section id="experience" className="section">
-      <div className="meta mb-3">CHAPTERS</div>
-      <h2 className="heading">Where the work has taken me.</h2>
+      <div className="meta mb-3">EXPERIENCE</div>
+      <h2 className="heading">Engineering experience.</h2>
 
       <div className="mt-6 sm:mt-7 space-y-6 sm:space-y-7">
         {experience.map((e, idx) => (
