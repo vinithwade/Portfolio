@@ -4,9 +4,24 @@
   --font-sans: 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
   --font-serif: 'Fraunces', ui-serif, Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --color-ink: rgb(var(--ink-rgb));
+  --color-paper: rgb(var(--paper-rgb));
 }
 
 @layer base {
+  :root {
+    --ink-rgb: 0 0 0;
+    --paper-rgb: 255 255 255;
+    --grain-blend: multiply;
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    --ink-rgb: 245 245 245;
+    --paper-rgb: 0 0 0;
+    --grain-blend: screen;
+    color-scheme: dark;
+  }
+
   html, body { height: 100%; }
 
   html { @apply antialiased; }
@@ -15,8 +30,8 @@
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
 
   body {
-    background: #fff;
-    color: #000;
+    background: rgb(var(--paper-rgb));
+    color: rgb(var(--ink-rgb));
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     @apply overflow-x-hidden;
@@ -27,11 +42,11 @@
 
   /* Normal cursor — custom cursor removed per request */
 
-  ::selection { background: #000; color: #fff; }
+  ::selection { background: rgb(var(--ink-rgb)); color: rgb(var(--paper-rgb)); }
   ::-webkit-scrollbar { width: 0; display: none; }
 
   :focus-visible {
-    outline: 2px solid #000;
+    outline: 2px solid rgb(var(--ink-rgb));
     outline-offset: 2px;
   }
 }
@@ -47,7 +62,7 @@
 
   /* =========================================
      STRICT 2-COLOR TYPOGRAPHY SYSTEM
-     White background (#fff) + Black text (#000)
+     White background (rgb(var(--paper-rgb))) + Black text (rgb(var(--ink-rgb)))
      Different strong font styles for every section
   ========================================= */
 
@@ -67,7 +82,7 @@
     object-fit: cover;
     object-position: center 30%;
     margin-bottom: 1.5rem;
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 1px solid rgb(var(--ink-rgb) / 0.1);
   }
   .sidebar-portrait { height: clamp(160px, 30dvh, 248px); }
   .mobile-header-spacer { height: calc(64px + env(safe-area-inset-top)); }
@@ -149,12 +164,12 @@
 
   /* Subtle separator between full-screen sections. Quieter opacity for smoother visual rhythm; line sits at section boundary */
   .section + .section {
-    border-top: 1px solid rgba(0,0,0,0.08);
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.08);
   }
 
   /* Clean link — underline only, pure white */
   .link {
-    color: #000;
+    color: rgb(var(--ink-rgb));
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
@@ -184,7 +199,7 @@
      Strict 2-color. Typography forward. Hover lifts + border brightens like a star coming into focus. */
   .constellation-card {
     padding: 1.35rem 1.1rem 1.3rem;
-    border: 1px solid rgba(0,0,0,0.07);
+    border: 1px solid rgb(var(--ink-rgb) / 0.07);
     transition: border-color 180ms cubic-bezier(0.23, 1, 0.32, 1),
                 transform 220ms cubic-bezier(0.23, 1, 0.32, 1);
     position: relative;
@@ -193,7 +208,7 @@
     margin-top: 0.65rem;
   }
   .constellation-card:hover {
-    border-color: rgba(0,0,0,0.32);
+    border-color: rgb(var(--ink-rgb) / 0.32);
   }
   .constellation-card:hover .constellation-star {
     opacity: 1;
@@ -206,18 +221,18 @@
     right: 1.15rem;
     width: 5px;
     height: 5px;
-    background: #000;
+    background: rgb(var(--ink-rgb));
     border-radius: 50%;
     opacity: 0.35;
     transition: opacity 180ms ease;
-    box-shadow: 0 0 0 1px rgba(0,0,0,0.15);
+    box-shadow: 0 0 0 1px rgb(var(--ink-rgb) / 0.15);
   }
   .constellation-star::after {
     content: '';
     position: absolute;
     top: 50%; left: 50%;
     width: 13px; height: 1px;
-    background: rgba(0,0,0,0.12);
+    background: rgb(var(--ink-rgb) / 0.12);
     transform: translate(-50%, -50%) rotate(45deg);
     pointer-events: none;
   }
@@ -228,7 +243,7 @@
     font-size: 0.8rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.42);
+    color: rgb(var(--ink-rgb) / 0.42);
   }
 
   /* Modal — minimal full-screen overlay, pure black/white, centered card */
@@ -236,15 +251,15 @@
     position: fixed;
     inset: 0;
     z-index: 60;
-    background: rgba(255,255,255,0.92);
+    background: rgb(var(--paper-rgb) / 0.92);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1.25rem;
   }
   .constellation-modal-card {
-    background: #fff;
-    border: 1px solid rgba(0,0,0,0.18);
+    background: rgb(var(--paper-rgb));
+    border: 1px solid rgb(var(--ink-rgb) / 0.18);
     max-width: 38rem;
     width: 100%;
     max-height: 88dvh;
@@ -262,21 +277,21 @@
     letter-spacing: 0.14em;
     padding: 0.5rem 0.6rem;
     min-height: 44px;
-    border: 1px solid rgba(0,0,0,0.2);
-    color: rgba(0,0,0,0.7);
+    border: 1px solid rgb(var(--ink-rgb) / 0.2);
+    color: rgb(var(--ink-rgb) / 0.7);
     background: transparent;
     cursor: pointer;
     transition: all 120ms ease;
   }
   .constellation-modal-close:hover {
-    color: #000;
-    border-color: rgba(0,0,0,0.55);
+    color: rgb(var(--ink-rgb));
+    border-color: rgb(var(--ink-rgb) / 0.55);
   }
   .constellation-detail {
     margin-top: 1.35rem;
     font-size: 1.18rem;
     line-height: 1.68;
-    color: rgba(0,0,0,0.82);
+    color: rgb(var(--ink-rgb) / 0.82);
   }
   .constellation-detail + .constellation-detail {
     margin-top: 1.1rem;
@@ -286,7 +301,7 @@
     font-size: 0.72rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: rgba(0,0,0,0.4);
+    color: rgb(var(--ink-rgb) / 0.4);
     margin-bottom: 0.35rem;
   }
   .constellation-detail ul {
@@ -302,7 +317,7 @@
     content: '·';
     position: absolute;
     left: -0.1rem;
-    color: rgba(0,0,0,0.55);
+    color: rgb(var(--ink-rgb) / 0.55);
   }
 
   /* Experience block — different hanging style. Slightly tightened for vertical rhythm & to avoid overflow on full-viewport sections */
@@ -320,8 +335,8 @@
   .skills-card {
     min-width: 0;
     padding: 1.25rem;
-    border: 1px solid rgba(0,0,0,0.13);
-    background: rgba(255,255,255,0.85);
+    border: 1px solid rgb(var(--ink-rgb) / 0.13);
+    background: rgb(var(--paper-rgb) / 0.85);
   }
   .skills-card-heading {
     display: flex;
@@ -341,7 +356,7 @@
     font-family: var(--font-mono);
     font-size: 0.625rem;
     letter-spacing: 0.08em;
-    color: rgba(0,0,0,0.4);
+    color: rgb(var(--ink-rgb) / 0.4);
   }
   .skills-tags {
     display: flex;
@@ -351,12 +366,12 @@
   .skills-tag {
     max-width: 100%;
     padding: 0.375rem 0.625rem;
-    border: 1px solid rgba(0,0,0,0.08);
-    background: rgba(0,0,0,0.025);
+    border: 1px solid rgb(var(--ink-rgb) / 0.08);
+    background: rgb(var(--ink-rgb) / 0.025);
     font-family: var(--font-mono);
     font-size: 0.75rem;
     line-height: 1.5;
-    color: rgba(0,0,0,0.78);
+    color: rgb(var(--ink-rgb) / 0.78);
     overflow-wrap: anywhere;
   }
   @media (min-width: 640px) {
@@ -388,7 +403,7 @@
 
   /* Simple divider using space + line — subtle */
   .rule {
-    border-top: 1px solid rgba(0,0,0,0.08);
+    border-top: 1px solid rgb(var(--ink-rgb) / 0.08);
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
   }
@@ -453,12 +468,12 @@
     z-index: 1;
     pointer-events: none;
     background-image:
-      radial-gradient(rgba(0,0,0,0.028) 0.6px, transparent 0),
-      radial-gradient(rgba(0,0,0,0.018) 0.9px, transparent 0);
+      radial-gradient(rgb(var(--ink-rgb) / 0.028) 0.6px, transparent 0),
+      radial-gradient(rgb(var(--ink-rgb) / 0.018) 0.9px, transparent 0);
     background-size: 2.6px 2.6px, 4.2px 4.2px;
     background-position: 0 0, 1.1px 1.6px;
     opacity: 0.65;
-    mix-blend-mode: multiply;
+    mix-blend-mode: var(--grain-blend);
   }
 
   /* 2. Letter-focused refinement to existing project hover states (constellation-cards) */

@@ -55,3 +55,11 @@ Desktop screens keep the portrait sidebar and section navigation. Phone and tabl
 screens use a compact column, a portrait above the introduction, a persistent
 header thumbnail, and native scrolling. The menu, project dialogs, and assistant
 adapt to the available viewport; anchor scrolling accounts for the fixed header.
+
+## Themes
+
+The site follows `prefers-color-scheme` by default, including system changes during
+a visit. The light/dark toggle sits beside Menu on smaller screens and in the
+desktop sidebar. A manual choice is saved in local storage and takes priority
+over the system preference. Theme colors cover the page, menus, project dialogs,
+skill cards, and assistant. An early head script sets the theme before first paint.

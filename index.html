@@ -5,6 +5,21 @@
     <link rel="icon" type="image/jpeg" href="/me.jpg" />
     <link rel="apple-touch-icon" href="/me.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" />
+    <script>
+      // Apply the preference before the page paints to avoid a theme flash.
+      (() => {
+        let saved = null
+        try { saved = localStorage.getItem('vinith-portfolio-theme') } catch { /* Storage may be unavailable. */ }
+        const theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = theme
+        document.documentElement.style.colorScheme = theme
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'dark' ? '#000000' : '#ffffff')
+      })()
+    </script>
     <meta
       name="description"
       content="Vinith Wade — Software developer in Hyderabad working on backend engineering, distributed systems, and AI products. Explore projects, experience, and download my resume."

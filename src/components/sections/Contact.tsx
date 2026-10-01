@@ -63,7 +63,7 @@ export function Contact() {
           >Instagram</motion.a>
         </div>
 
-        <div className="text-sm mt-1.5 sm:mt-2 text-black/50">{site.location}</div>
+        <div className="text-sm mt-1.5 sm:mt-2 text-ink/50">{site.location}</div>
       </motion.div>
     </section>
   )

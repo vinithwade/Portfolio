@@ -21,11 +21,11 @@ export function About() {
             {about.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
 
-          <div className="mt-7 pt-5 border-t border-black/10">
-            <div className="meta text-black/50 mb-2">EDUCATION · {education.period}</div>
+          <div className="mt-7 pt-5 border-t border-ink/10">
+            <div className="meta text-ink/50 mb-2">EDUCATION · {education.period}</div>
             <h3 className="font-serif text-[21px]">{education.institution}</h3>
-            <p className="text-[15px] text-black/70 mt-1">{education.degree}</p>
-            <p className="text-sm text-black/50 mt-1">{education.location}</p>
+            <p className="text-[15px] text-ink/70 mt-1">{education.degree}</p>
+            <p className="text-sm text-ink/50 mt-1">{education.location}</p>
           </div>
 
           <a href="#contact" className="link inline-block mt-6 text-sm touch-target py-1">say hello</a>

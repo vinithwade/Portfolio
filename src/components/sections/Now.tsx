@@ -10,7 +10,7 @@ export function Now() {
         {current.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
       </div>
 
-      <div className="mt-5 sm:mt-6 text-xs font-mono tracking-[0.1em] text-black/50">{site.location} · {current.updated}</div>
+      <div className="mt-5 sm:mt-6 text-xs font-mono tracking-[0.1em] text-ink/50">{site.location} · {current.updated}</div>
     </section>
   )
 }

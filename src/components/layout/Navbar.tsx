@@ -3,6 +3,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { site, navLinks as contentNavLinks } from '../../data/content'
 import { GithubIcon, InstagramIcon, LinkedinIcon, XIcon } from '../ui/BrandIcons'
 import { springs, transition } from '../../lib/motion'
+import { ThemeToggle } from '../ui/ThemeToggle'
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
@@ -50,7 +51,7 @@ export function Navbar() {
     if (!open) return
     const menu = menuRef.current
     const trigger = menuButtonRef.current
-    menu?.querySelector<HTMLButtonElement>('button')?.focus()
+    menu?.querySelector<HTMLButtonElement>('button[aria-label="Close menu"]')?.focus()
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setOpen(false)
       if (event.key !== 'Tab') return
@@ -108,7 +109,7 @@ export function Navbar() {
     <>
       {/* CREATIVE VERTICAL LEFT NAV — the "spine" of the portfolio */}
       {/* Different from standard top bar: a fixed elegant vertical column showcasing typography and the photo creatively */}
-      <aside className="desktop-sidebar hidden lg:flex fixed left-0 top-0 z-50 h-full w-[252px] flex-col bg-white border-r border-black/10 overflow-y-auto">
+      <aside className="desktop-sidebar hidden lg:flex fixed left-0 top-0 z-50 h-full w-[252px] flex-col bg-paper border-r border-ink/10 overflow-y-auto">
         {/* Photo in navbar only: rectangle, taller, touches top + left + right edges */}
         <div className="sidebar-portrait w-full overflow-hidden flex-shrink-0 relative">
           <motion.img 
@@ -124,7 +125,7 @@ export function Navbar() {
             transition={{ duration: reduceMotion ? 0.1 : 0.6, ease: [0.23, 1, 0.32, 1] }}
           />
           {/* Subtle bottom fade — elegant blend from photo into sidebar content */}
-          <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white/30 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-paper/30 to-transparent pointer-events-none" />
         </div>
 
         {/* Content with refined internal spacing */}
@@ -142,11 +143,11 @@ export function Navbar() {
             className="overflow-hidden mb-6"
           >
             <a href="#hero" className="block group">
-              <div className="font-serif text-[31px] leading-none tracking-[-0.022em] text-black whitespace-nowrap">
+              <div className="font-serif text-[31px] leading-none tracking-[-0.022em] text-ink whitespace-nowrap">
                 Vinith Wade
               </div>
               {/* Delicate rule */}
-              <div className="mt-2 h-px w-7 bg-black/20 group-hover:bg-black/35 transition-colors duration-200" />
+              <div className="mt-2 h-px w-7 bg-ink/20 group-hover:bg-ink/35 transition-colors duration-200" />
             </a>
           </motion.div>
 
@@ -162,8 +163,8 @@ export function Navbar() {
                     aria-current={isActive ? 'page' : undefined}
                     className={`text-[13px] font-mono tracking-[0.04em] transition-colors duration-150 ${
                       isActive 
-                        ? 'text-black' 
-                        : 'text-black/50 hover:text-black'
+                        ? 'text-ink'
+                        : 'text-ink/50 hover:text-ink'
                     }`}
                   >
                     {link.label}
@@ -172,26 +173,33 @@ export function Navbar() {
               })}
             </div>
           </nav>
+          <div className="mt-6 flex items-center justify-between gap-3 border-t border-ink/10 pt-4">
+            <span className="font-mono text-[10px] tracking-[0.14em] text-ink/50">THEME</span>
+            <ThemeToggle />
+          </div>
         </div>
       </aside>
 
       {/* A persistent portrait on phone and tablet screens. */}
-      <div className="mobile-header lg:hidden fixed top-0 left-0 right-0 z-50 bg-white border-b border-black/10" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
-        <div className="flex h-16 items-center justify-between gap-3 px-4 sm:px-6">
-          <a href="#hero" className="flex min-w-0 items-center gap-3 font-serif text-[19px] tracking-[-0.018em] active:opacity-70 transition" onClick={() => setOpen(false)}>
+      <div className="mobile-header lg:hidden fixed top-0 left-0 right-0 z-50 bg-paper border-b border-ink/10" style={{ paddingTop: 'env(safe-area-inset-top)' }}>
+        <div className="flex h-16 items-center justify-between gap-2 px-4 sm:px-6">
+          <a href="#hero" className="flex min-w-0 items-center gap-2.5 font-serif text-[19px] tracking-[-0.018em] active:opacity-70 transition" onClick={() => setOpen(false)}>
             <img src={site.photo} alt="" width={38} height={38} className="h-[38px] w-[38px] shrink-0 rounded-full object-cover object-top" />
             <span>{site.name}</span>
           </a>
-          <button 
-            ref={menuButtonRef}
-            onClick={() => setOpen(!open)} 
-            className="font-mono text-[11px] tracking-[0.24em] text-black/70 hover:text-black active:text-black py-2.5 px-4 -mr-1 rounded transition touch-target"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-          >
-            {open ? 'CLOSE' : 'MENU'}
-          </button>
+          <div className="flex shrink-0 items-center gap-1">
+            <ThemeToggle />
+            <button
+              ref={menuButtonRef}
+              onClick={() => setOpen(!open)}
+              className="font-mono text-[11px] tracking-[0.24em] text-ink/70 hover:text-ink active:text-ink py-2.5 px-3 -mr-1 rounded transition touch-target"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+            >
+              {open ? 'CLOSE' : 'MENU'}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -208,7 +216,7 @@ export function Navbar() {
             exit={{ opacity: 0 }}
             transition={{ duration: reduceMotion ? 0.01 : 0.18, ease: [0.22, 1, 0.36, 1] }}
             id="mobile-menu"
-            className="lg:hidden fixed inset-0 z-[60] bg-white"
+            className="lg:hidden fixed inset-0 z-[60] bg-paper"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
             onClick={() => setOpen(false)}
             role="dialog"
@@ -225,17 +233,20 @@ export function Navbar() {
             >
               {/* Menu header with name + close */}
               <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                  <img src={site.photo} alt="" width={48} height={48} className="h-12 w-12 rounded-full object-cover object-top" />
-                  <div className="font-serif text-[24px] tracking-[-0.02em]">{site.name}</div>
+                <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                  <img src={site.photo} alt="" width={48} height={48} className="h-10 w-10 shrink-0 sm:h-12 sm:w-12 rounded-full object-cover object-top" />
+                  <div className="font-serif text-[20px] sm:text-[24px] tracking-[-0.02em] whitespace-nowrap">{site.name}</div>
                 </div>
-                <button
-                  onClick={() => setOpen(false)}
-                  className="font-mono text-[11px] tracking-[0.26em] text-black/60 hover:text-black py-2 px-3 -mr-1 active:text-black transition touch-target"
-                  aria-label="Close menu"
-                >
-                  CLOSE
-                </button>
+                <div className="flex shrink-0 items-center gap-1">
+                  <ThemeToggle />
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="font-mono text-[11px] tracking-[0.26em] text-ink/60 hover:text-ink py-2 px-2 -mr-1 active:text-ink transition touch-target"
+                    aria-label="Close menu"
+                  >
+                    CLOSE
+                  </button>
+                </div>
               </div>
 
               {/* Nav links with touch targets + active */}
@@ -252,10 +263,10 @@ export function Navbar() {
                         setOpen(false)
                       }}
                       aria-current={isActive ? 'page' : undefined}
-                      className={`touch-target flex items-center text-[20px] tracking-[-0.008em] border-b border-black/10 last:border-b-0 transition-all active:bg-black/5 ${
+                      className={`touch-target flex items-center text-[20px] tracking-[-0.008em] border-b border-ink/10 last:border-b-0 transition-all active:bg-ink/5 ${
                         isActive 
-                          ? 'text-black font-medium' 
-                          : 'text-black/85 hover:text-black active:text-black'
+                          ? 'text-ink font-medium'
+                          : 'text-ink/85 hover:text-ink active:text-ink'
                       }`}
                     >
                       {link.label}
@@ -265,11 +276,11 @@ export function Navbar() {
               </div>
 
               {/* Email + Socials to match desktop experience */}
-              <div className="mt-9 pt-8 border-t border-black/10">
+              <div className="mt-9 pt-8 border-t border-ink/10">
                 <a 
                   href={`mailto:${site.email}`} 
                   onClick={() => setOpen(false)} 
-                  className="touch-target inline-block text-[15px] tracking-[-0.01em] text-black/80 hover:text-black font-serif underline underline-offset-2 decoration-black/30 active:text-black"
+                  className="touch-target inline-block text-[15px] tracking-[-0.01em] text-ink/80 hover:text-ink font-serif underline underline-offset-2 decoration-ink/30 active:text-ink"
                 >
                   {site.email}
                 </a>
@@ -280,7 +291,7 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
+                    className="text-ink/55 hover:text-ink active:text-ink transition p-1 -m-1 touch-target"
                     aria-label="LinkedIn"
                   >
                     <LinkedinIcon className="w-5 h-5" />
@@ -290,7 +301,7 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
+                    className="text-ink/55 hover:text-ink active:text-ink transition p-1 -m-1 touch-target"
                     aria-label="GitHub"
                   >
                     <GithubIcon className="w-5 h-5" />
@@ -300,7 +311,7 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
+                    className="text-ink/55 hover:text-ink active:text-ink transition p-1 -m-1 touch-target"
                     aria-label="X"
                   >
                     <XIcon className="w-5 h-5" />
@@ -310,14 +321,14 @@ export function Navbar() {
                     target="_blank" 
                     rel="noreferrer"
                     onClick={() => setOpen(false)}
-                    className="text-black/55 hover:text-black active:text-black transition p-1 -m-1 touch-target"
+                    className="text-ink/55 hover:text-ink active:text-ink transition p-1 -m-1 touch-target"
                     aria-label="Instagram"
                   >
                     <InstagramIcon className="w-5 h-5" />
                   </a>
                 </div>
 
-                <div className="mt-1.5 text-[10px] text-black/40 tracking-[0.12em] font-mono">
+                <div className="mt-1.5 text-[10px] text-ink/40 tracking-[0.12em] font-mono">
                   {site.location}
                 </div>
               </div>

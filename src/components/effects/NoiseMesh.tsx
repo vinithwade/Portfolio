@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { useScroll, useReducedMotion } from 'framer-motion'
+import { useTheme } from '../../lib/theme'
 
 /**
  * TASK 8: Subtle constellation background — Canvas only.
@@ -10,6 +11,7 @@ import { useScroll, useReducedMotion } from 'framer-motion'
 export function NoiseMesh() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const reduceMotion = useReducedMotion()
+  const { theme } = useTheme()
   const { scrollYProgress } = useScroll()
 
   useEffect(() => {
@@ -67,7 +69,7 @@ export function NoiseMesh() {
       // Very faint scroll-tied parallax offset for constellation (subtle, not distracting)
       const parallax = reduceMotion ? 0 : (scroll - 0.5) * 18
 
-      ctx.fillStyle = 'rgba(0,0,0,0.08)'
+      ctx.fillStyle = theme === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)'
 
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i]
@@ -89,7 +91,7 @@ export function NoiseMesh() {
       }
 
       // A few ultra-faint connecting "constellation lines" (2-3 quiet ones)
-      ctx.strokeStyle = 'rgba(0,0,0,0.018)'
+      ctx.strokeStyle = theme === 'dark' ? 'rgba(255,255,255,0.018)' : 'rgba(0,0,0,0.018)'
       ctx.lineWidth = 0.6 * dpr
       ctx.globalAlpha = 0.7
       if (stars.length > 8) {
@@ -135,7 +137,7 @@ export function NoiseMesh() {
       cancelAnimationFrame(raf)
       unsub()
     }
-  }, [reduceMotion, scrollYProgress])
+  }, [reduceMotion, scrollYProgress, theme])
 
   return (
     <canvas

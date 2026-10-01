@@ -135,7 +135,7 @@ export function ChatWidget() {
         type="button"
         onClick={() => { setHint(false); setOpen((v) => !v) }}
         aria-label={open ? 'Close chat' : 'Ask about Vinith'}
-        className="chat-launcher fixed right-4 bottom-5 lg:bottom-auto lg:right-6 lg:top-6 z-[80] flex h-14 w-14 items-center justify-center rounded-full bg-black text-white shadow-[0_6px_24px_rgba(0,0,0,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+        className="chat-launcher fixed right-4 bottom-5 lg:bottom-auto lg:right-6 lg:top-6 z-[80] flex h-14 w-14 items-center justify-center rounded-full bg-ink text-paper shadow-[0_6px_24px_rgba(0,0,0,0.28)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
         animate={controls}
         whileHover={reduceMotion ? {} : { scale: 1.05 }}
         whileTap={reduceMotion ? {} : { scale: 0.94 }}
@@ -179,7 +179,7 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8, scale: 0.94 }}
             transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="chat-hint fixed right-4 bottom-[5.75rem] lg:bottom-auto lg:right-[5.75rem] lg:top-6 z-[80] max-w-[15.5rem] cursor-pointer rounded-2xl border border-black/12 bg-white px-4 py-3 shadow-[0_12px_38px_rgba(0,0,0,0.18)]"
+            className="chat-hint fixed right-4 bottom-[5.75rem] lg:bottom-auto lg:right-[5.75rem] lg:top-6 z-[80] max-w-[15.5rem] cursor-pointer rounded-2xl border border-ink/12 bg-paper px-4 py-3 shadow-[0_12px_38px_rgba(0,0,0,0.18)]"
           >
             <button
               type="button"
@@ -188,14 +188,14 @@ export function ChatWidget() {
                 setHint(false)
               }}
               aria-label="Dismiss"
-              className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full border border-black/12 bg-white text-[11px] text-black/50 shadow-sm hover:text-black"
+              className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full border border-ink/12 bg-paper text-[11px] text-ink/50 shadow-sm hover:text-ink"
             >
               ✕
             </button>
             <div className="text-[13px] font-semibold leading-snug">Hi, I'm Vinith's personal AI agent 👋</div>
-            <div className="mt-1 text-[12.5px] leading-snug text-black/60">Click me — I'll tell you all about Vinith.</div>
+            <div className="mt-1 text-[12.5px] leading-snug text-ink/60">Click me — I'll tell you all about Vinith.</div>
             {/* tail pointing toward the button */}
-            <div className="hidden lg:block absolute right-[-5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rotate-45 border-r border-t border-black/12 bg-white" />
+            <div className="hidden lg:block absolute right-[-5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rotate-45 border-r border-t border-ink/12 bg-paper" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -207,7 +207,7 @@ export function ChatWidget() {
             key="panel"
             role="dialog"
             aria-label="Chat with Vinith's assistant"
-            className="chat-panel fixed top-0 right-0 z-[80] h-dvh w-full sm:w-[400px] flex flex-col bg-white border-l border-black/10 shadow-[-16px_0_50px_rgba(0,0,0,0.10)]"
+            className="chat-panel fixed top-0 right-0 z-[80] h-dvh w-full sm:w-[400px] flex flex-col bg-paper border-l border-ink/10 shadow-[-16px_0_50px_rgba(0,0,0,0.10)]"
             style={{ paddingTop: 'env(safe-area-inset-top)' }}
             initial={reduceMotion ? { opacity: 0 } : { x: '100%' }}
             animate={reduceMotion ? { opacity: 1 } : { x: 0 }}
@@ -215,17 +215,17 @@ export function ChatWidget() {
             transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Header */}
-            <div className="flex items-center gap-3 border-b border-black/10 px-5 py-4">
+            <div className="flex items-center gap-3 border-b border-ink/10 px-5 py-4">
               <img src="/me.jpg" alt="Vinith Wade" className="h-9 w-9 rounded-full object-cover" />
               <div className="min-w-0 flex-1">
                 <div className="text-sm font-semibold leading-tight">Ask about Vinith</div>
-                <div className="font-mono text-[10px] tracking-[0.12em] text-black/45">AI ASSISTANT</div>
+                <div className="font-mono text-[10px] tracking-[0.12em] text-ink/45">AI ASSISTANT</div>
               </div>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close chat"
-                className="rounded-md p-1 text-black/50 hover:text-black"
+                className="rounded-md p-1 text-ink/50 hover:text-ink"
               >
                 <CloseIcon />
               </button>
@@ -235,7 +235,7 @@ export function ChatWidget() {
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto overscroll-contain px-5 py-5">
               {messages.length === 0 && (
                 <div className="space-y-3">
-                  <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-black/[0.06] px-3.5 py-2.5 text-[14px] leading-relaxed">
+                  <div className="max-w-[85%] rounded-2xl rounded-tl-sm bg-ink/[0.06] px-3.5 py-2.5 text-[14px] leading-relaxed">
                     Hi! I'm Vinith's assistant. Ask me anything about his work, skills, projects, or how to reach him.
                   </div>
                   <div className="flex flex-wrap gap-2 pt-1">
@@ -244,7 +244,7 @@ export function ChatWidget() {
                         key={s}
                         type="button"
                         onClick={() => void ask(s)}
-                        className="rounded-full border border-black/15 px-3 py-1.5 text-[12.5px] text-black/70 transition hover:border-black/40 hover:text-black"
+                        className="rounded-full border border-ink/15 px-3 py-1.5 text-[12.5px] text-ink/70 transition hover:border-ink/40 hover:text-ink"
                       >
                         {s}
                       </button>
@@ -258,8 +258,8 @@ export function ChatWidget() {
                   <div
                     className={
                       m.role === 'user'
-                        ? 'max-w-[85%] whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl rounded-tr-sm bg-black px-3.5 py-2.5 text-[14px] leading-relaxed text-white'
-                        : 'max-w-[85%] whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl rounded-tl-sm bg-black/[0.06] px-3.5 py-2.5 text-[14px] leading-relaxed text-black'
+                        ? 'max-w-[85%] whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl rounded-tr-sm bg-ink px-3.5 py-2.5 text-[14px] leading-relaxed text-paper'
+                        : 'max-w-[85%] whitespace-pre-wrap [overflow-wrap:anywhere] rounded-2xl rounded-tl-sm bg-ink/[0.06] px-3.5 py-2.5 text-[14px] leading-relaxed text-ink'
                     }
                   >
                     {m.content}
@@ -269,11 +269,11 @@ export function ChatWidget() {
 
               {loading && (
                 <div className="flex justify-start">
-                  <div className="flex items-center gap-1 rounded-2xl rounded-tl-sm bg-black/[0.06] px-4 py-3">
+                  <div className="flex items-center gap-1 rounded-2xl rounded-tl-sm bg-ink/[0.06] px-4 py-3">
                     {[0, 1, 2].map((d) => (
                       <span
                         key={d}
-                        className="h-1.5 w-1.5 animate-bounce rounded-full bg-black/40"
+                        className="h-1.5 w-1.5 animate-bounce rounded-full bg-ink/40"
                         style={{ animationDelay: `${d * 0.15}s` }}
                       />
                     ))}
@@ -283,20 +283,20 @@ export function ChatWidget() {
             </div>
 
             {/* Input */}
-            <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-black/10 px-4 py-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
+            <form onSubmit={onSubmit} className="flex items-center gap-2 border-t border-ink/10 px-4 py-3" style={{ paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom))' }}>
               <input
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about Vinith…"
                 aria-label="Type your question"
-                className="min-w-0 flex-1 bg-transparent px-1 py-1.5 text-[14px] outline-none placeholder:text-black/40"
+                className="min-w-0 flex-1 bg-transparent px-1 py-1.5 text-[14px] outline-none placeholder:text-ink/40"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || loading}
                 aria-label="Send"
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white transition disabled:opacity-30"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-ink text-paper transition disabled:opacity-30"
               >
                 <SendIcon />
               </button>

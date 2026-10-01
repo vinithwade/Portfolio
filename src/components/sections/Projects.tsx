@@ -19,12 +19,12 @@ export function Projects() {
             <div className="constellation-star" aria-hidden="true" />
             <div className="constellation-tag">{project.tag}</div>
             <h3 className="mt-2 font-serif text-[21px] leading-tight tracking-[-0.01em] pr-8">{project.title}</h3>
-            <div className="mt-1 text-[14.5px] text-black/75">{project.subtitle}</div>
+            <div className="mt-1 text-[14.5px] text-ink/75">{project.subtitle}</div>
             <p className="prose mt-3 text-[15px]">{project.description}</p>
-            <p className="mt-3 text-[11px] font-mono leading-relaxed text-black/50">{project.tech.join(' · ')}</p>
+            <p className="mt-3 text-[11px] font-mono leading-relaxed text-ink/50">{project.tech.join(' · ')}</p>
             <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-1 text-sm">
               <ProjectLinks project={project} />
-              <button type="button" onClick={() => setSelected(project)} aria-label={`Explore ${project.title}`} className="touch-target font-mono text-[10px] tracking-[0.14em] text-black/55 hover:text-black underline decoration-black/25 underline-offset-[3px] transition-colors">
+              <button type="button" onClick={() => setSelected(project)} aria-label={`Explore ${project.title}`} className="touch-target font-mono text-[10px] tracking-[0.14em] text-ink/55 hover:text-ink underline decoration-ink/25 underline-offset-[3px] transition-colors">
                 PROJECT DETAILS
               </button>
             </div>
@@ -79,14 +79,14 @@ function Modal({ project, onClose }: { project: Project; onClose: () => void }) 
         <button ref={closeRef} type="button" onClick={onClose} className="constellation-modal-close" aria-label="Close project details">CLOSE</button>
         <div className="constellation-tag pr-16">{project.tag}</div>
         <h3 className="mt-2 font-serif text-[22px] leading-tight tracking-[-0.015em] pr-10">{project.title}</h3>
-        <div className="mt-1 text-[14.5px] text-black/70">{project.subtitle}</div>
+        <div className="mt-1 text-[14.5px] text-ink/70">{project.subtitle}</div>
         <p className="prose mt-5 text-[15px]">{project.description}</p>
-        <div className="mt-6 pt-5 border-t border-black/10 space-y-4">
+        <div className="mt-6 pt-5 border-t border-ink/10 space-y-4">
           {project.role && <div className="constellation-detail"><h4>My part</h4><div>{project.role}</div></div>}
           {project.problem && <div className="constellation-detail"><h4>The problem</h4><div>{project.problem}</div></div>}
           {project.process && <div className="constellation-detail"><h4>How it works</h4><ul>{project.process.map((step) => <li key={step}>{step}</li>)}</ul></div>}
           <div className="constellation-detail"><h4>The tools</h4><div>{project.tech.join(' · ')}</div></div>
-          {project.detail && <p className="text-[13.5px] leading-relaxed text-black/60">{project.detail}</p>}
+          {project.detail && <p className="text-[13.5px] leading-relaxed text-ink/60">{project.detail}</p>}
         </div>
         <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm"><ProjectLinks project={project} />{!project.href && <ResumeLink />}</div>
       </motion.div>

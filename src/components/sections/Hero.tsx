@@ -31,7 +31,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p
-          className="mt-4 text-[15.5px] max-w-[34ch] text-black/90 leading-tight tracking-[-0.01em]"
+          className="mt-4 text-[15.5px] max-w-[34ch] text-ink/90 leading-tight tracking-[-0.01em]"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={reduceMotion ? reducedTransition : { duration: 0.65, delay: 0.1, ease: [0.21, 0.92, 0.26, 1] }}
@@ -41,7 +41,7 @@ export function Hero() {
 
         {/* Bio text — refined measure */}
         <div className="mt-6 max-w-[48ch] prose text-[14.8px] leading-[1.72]">
-          <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-black/50 mb-4">{site.role}</div>
+          <div className="font-mono text-[10px] tracking-[0.14em] uppercase text-ink/50 mb-4">{site.role}</div>
           {introduction.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
         </div>
 
@@ -53,7 +53,7 @@ export function Hero() {
           transition={reduceMotion ? reducedTransition : { duration: 0.6, delay: 0.22, ease: [0.21, 0.92, 0.26, 1] }}
         >
           <a href="#projects" className="link touch-target">View projects</a>
-          <span className="text-black/25">·</span>
+          <span className="text-ink/25">·</span>
           <a href="#contact" className="link touch-target">Contact</a>
           <ResumeLink />
         </motion.div>

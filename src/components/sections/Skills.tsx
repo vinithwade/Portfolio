@@ -9,7 +9,7 @@ export function Skills() {
     <section id="skills" className="section">
       <div className="meta mb-3">SKILLS</div>
       <h2 className="heading">Technical skills.</h2>
-      <p className="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-black/60">
+      <p className="mt-3 max-w-[48ch] text-[15px] leading-relaxed text-ink/60">
         The languages, systems, and tools behind my projects.
       </p>
 
