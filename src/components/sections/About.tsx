@@ -25,6 +25,7 @@ export function About() {
             <div className="meta text-ink/50 mb-2">EDUCATION · {education.period}</div>
             <h3 className="font-serif text-[21px]">{education.institution}</h3>
             <p className="text-[15px] text-ink/70 mt-1">{education.degree}</p>
+            <p className="text-sm text-ink/70 mt-1">CGPA: {education.cgpa}</p>
             <p className="text-sm text-ink/50 mt-1">{education.location}</p>
           </div>
 

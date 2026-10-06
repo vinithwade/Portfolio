@@ -45,6 +45,14 @@ export function Contact() {
             whileHover={reduceMotion ? {} : { x: 1 }}
             transition={{ duration: 0.15 }}
           >LinkedIn</motion.a>
+          <motion.a
+            href={site.leetcode}
+            target="_blank"
+            rel="noreferrer"
+            className="link touch-target py-1"
+            whileHover={reduceMotion ? {} : { x: 1 }}
+            transition={{ duration: 0.15 }}
+          >LeetCode</motion.a>
           <motion.a 
             href={site.x} 
             target="_blank" 

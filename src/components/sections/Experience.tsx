@@ -23,6 +23,7 @@ export function Experience() {
             <div className="font-mono text-xs tracking-[3px] text-ink/50">{e.period}</div>
             <div className="mt-1.5 sm:mt-2 text-[16px] sm:text-[17px] font-medium">{e.role}</div>
             <div className="text-ink/70 text-[14.5px] sm:text-[15px]">{e.place}</div>
+            <div className="mt-1 text-sm text-ink/50">{e.location}</div>
             <p className="prose mt-2.5 sm:mt-3 text-[14.5px] sm:text-[15px]">{e.text}</p>
           </motion.div>
         ))}

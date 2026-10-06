@@ -1,6 +1,6 @@
 # Vinith Wade — Portfolio
 
-A personal portfolio for Vinith Wade: backend engineering, distributed systems,
+A personal portfolio for Vinith Wade: backend engineering, machine learning,
 and AI products, with a monochrome constellation theme.
 
 ## Development
@@ -28,20 +28,22 @@ Experience, Skills, Expertise, About & Education, Achievements, Current Focus,
 and Contact. Projects and experience appear first to show evidence of the work
 before the supporting background.
 
-The original resume is served from `public/VinithWade_SDE1.pdf`. Replace that file
+The updated resume is served from `public/VinithWade_SDE.pdf`. Replace that file
 to refresh the download, or update `site.resume` and `site.resumeFilename`.
-Download links appear in the introduction, Contact, and resume-only project details.
+Download links appear in the introduction and Contact. The previous SDE1 URL also
+serves the updated PDF for visitors with an older link.
 
 ## Content sources and open details
 
-The supplied SDE1 resume is the source for education, MindFlow and Zipp roles,
-the Java transaction project, skills, publication, and achievements. Public GitHub
-READMEs and repository descriptions supply featured project functionality and links.
-The earlier Behooked and Digital Blinc internships are retained from the original
-portfolio; Behooked's end date and current employment status are unconfirmed.
-The Java transaction pipeline has no supplied public repository, so its details
-link to the resume. The public sepsis repository demonstrates Random Forest on
-synthetic data; the resume's GRU/LSTM + XGBoost research is described separately.
+The supplied `VinithWade_SDE.pdf` resume is the source for education and CGPA,
+MindFlow and Zipp founder roles, the Corizo data science internship, OneSearch,
+Dekho, CipherMail, skills, publication, and achievements. Experience and skills
+now follow this resume; the older resume-only transaction pipeline is no longer
+featured. Additional public GitHub projects remain available on the page.
+Public GitHub READMEs and repository descriptions supply their functionality
+and links. The public sepsis repository demonstrates Random Forest on synthetic
+data; the resume's GRU/LSTM + XGBoost research and reported results are described
+separately in project details. No listed role is presented as current employment.
 
 ## Assistant
 
